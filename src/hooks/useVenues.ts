@@ -34,13 +34,17 @@ export function useVenues() {
 
     getVenues(page, PAGE_SIZE, controller.signal)
       .then((res) => {
-        setState((prev) => ({
-          venues: page === 1 ? res.data : [...prev.venues, ...res.data],
-          total: res.meta.totalCount,
-          isLastPage: res.meta.isLastPage,
-          loadedPage: page,
-          error: null,
-        }))
+        setState((prev) => {
+          const known = new Set(prev.venues.map((venue) => venue.id))
+          const newVenues = res.data.filter((venue) => !known.has(venue.id))
+          return {
+            venues: page === 1 ? res.data : [...prev.venues, ...newVenues],
+            total: res.meta.totalCount,
+            isLastPage: res.meta.isLastPage,
+            loadedPage: page,
+            error: null,
+          }
+        })
       })
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
