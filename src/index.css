@@ -1,3 +1,57 @@
+:root {
+  /* Colours */
+  --color-primary: #8c2d22; /* Primary · Falu red: buttons, logo */
+  --color-primary-hover: #6f231b; /* Primary_hover */
+  --color-secondary: #2f5d50; /* Secondary · Spruce: selected dates, success */
+  --color-text: #1f2a2e; /* Text_primary · Ink */
+  --color-text-muted: #465254; /* Text_secondary */
+  --color-placeholder: #5a6668; /* Placeholder */
+  --color-error: #9b1c14; /* Error */
+  --color-border: #7a8587; /* Border: inputs, chips */
+  --color-surface-muted: #ece7de; /* Disabled · Birch: tags, booked dates, card borders */
+  --color-bg: #f7f5f0; /* Background · Snow */
+  --color-white: #ffffff; /* White */
+
+  /* Typography */
+  --font-family: 'Manrope', system-ui, sans-serif;
+  --font-size-h1: 1.875rem; /* 30px mobile, 52px desktop */
+  --font-size-h2: 1.375rem; /* 22px mobile, 28px desktop */
+  --font-size-h3: 1.125rem; /* 18px */
+  --font-size-body: 1rem; /* 16px */
+  --font-size-small: 0.875rem; /* 14px */
+  --font-size-caption: 0.75rem; /* 12px */
+
+  /* Spacing: 8-point grid */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+
+  /* Shapes */
+  --radius-sm: 6px; /* inputs, tags */
+  --radius-md: 8px; /* buttons */
+  --radius-lg: 12px; /* cards, modals */
+  --radius-pill: 999px; /* chips, badges */
+  --shadow: 0 10px 30px rgb(0 0 0 / 20%);
+
+  /* Layout: side padding 16px on mobile, 40px on desktop */
+  --page-padding: var(--space-4);
+  --page-max-width: 1440px;
+}
+
+/* Desktop: 1024px and wider */
+@media (min-width: 64rem) {
+  :root {
+    --font-size-h1: 3.25rem;
+    --font-size-h2: 1.75rem;
+    --page-padding: 2.5rem;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -6,5 +60,39 @@
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+/* Focus ring on every interactive element (style guide: 2px Ink, offset 2px) */
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
 }
