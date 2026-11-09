@@ -32,3 +32,10 @@
 **Task:** Store the Noroff API key in .env and Vercel, and add types for environment variables
 **What AI did:** Explained how Vite reads .env (only variables with the `VITE_` prefix reach the app, and only after restarting the dev server) and why the key is visible in the browser anyway. Suggested a src/vite-env.d.ts file so `import.meta.env.VITE_NOROFF_API_KEY` is typed as `string` instead of `any`, and explained the parts: the `/// <reference types="vite/client" />` line, the `ImportMetaEnv` interface, and `readonly`. Explained the steps in Vercel: where to add the variable, why Vercel warns about the `VITE_` prefix, and why the site must be rebuilt (Redeploy or a new push) before the variable is used
 **What I did myself:** Created the API key once, added it to .env (ignored by Git) and wrote .env.example. Wrote src/vite-env.d.ts and checked it with `tsc`, lint and Prettier. In Vercel I added `VITE_NOROFF_API_KEY` for Production, Preview and Development, chose the "Config" type because a `VITE_` value is public in the browser, and redeployed the site
+
+## 2026-11-09
+
+**Tool:** Claude
+**Task:** Add Lucide icons (`lucide-react`) and understand the `npm audit` warnings after installing it
+**What AI did:** Explained the 10 moderate warnings: they all come from `minimatch`, which is used only by dev tools (ESLint, typescript-eslint), so they are not part of the built site. Suggested `npm audit --omit=dev` to check only the packages that reach the site, and warned not to run `npm audit fix --force`, because it would downgrade ESLint from 10 to 9 (a breaking change) and could break `eslint.config.js`
+**What I did myself:** Installed `lucide-react`, ran `npm audit` and `npm audit --omit=dev`, checked that the site packages have 0 vulnerabilities
