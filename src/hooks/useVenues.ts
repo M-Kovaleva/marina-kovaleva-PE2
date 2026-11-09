@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getVenues } from '../services/venues'
+import { getVenues, searchVenues } from '../services/venues'
 import type { Venue } from '../types/venue'
 
 const PAGE_SIZE = 24
@@ -21,10 +21,11 @@ const initialState: VenuesState = {
 }
 
 /**
- * Loads venues page by page (newest first)
+ * Loads venues page by page: all venues (newest first) or search results for `query`
  * `loadMore` adds the next page to the list, `retry` repeats a failed request
+ * Give the component that uses it `key={query}`, so a new search starts from page 1
  */
-export function useVenues() {
+export function useVenues(query = '') {
   const [page, setPage] = useState(1)
   const [attempt, setAttempt] = useState(0)
   const [state, setState] = useState<VenuesState>(initialState)
@@ -32,7 +33,10 @@ export function useVenues() {
   useEffect(() => {
     const controller = new AbortController()
 
-    getVenues(page, PAGE_SIZE, controller.signal)
+    const request = query
+      ? searchVenues(query, page, PAGE_SIZE, controller.signal)
+      : getVenues(page, PAGE_SIZE, controller.signal)
+    request
       .then((res) => {
         setState((prev) => {
           const known = new Set(prev.venues.map((venue) => venue.id))
@@ -53,7 +57,7 @@ export function useVenues() {
       })
 
     return () => controller.abort()
-  }, [page, attempt])
+  }, [query, page, attempt])
 
   const isLoading = state.loadedPage < page && state.error === null
 
