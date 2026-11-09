@@ -1,0 +1,157 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-surface-muted);
+  border-radius: var(--radius-lg);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+/* The focus ring goes around the whole card, not only the title link */
+.card:focus-within {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.media {
+  position: relative;
+}
+
+.guests {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-white);
+  font-size: var(--font-size-caption);
+  font-weight: 700;
+}
+
+.body {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.title {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--font-size-h3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link {
+  text-decoration: none;
+}
+
+/* Makes the whole card clickable */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.card:hover .link {
+  text-decoration: underline;
+}
+
+.rating {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+}
+
+.rating svg {
+  fill: currentColor;
+}
+
+.new {
+  flex-shrink: 0;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-muted);
+  font-size: var(--font-size-caption);
+  font-weight: 700;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.location svg {
+  flex-shrink: 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-muted);
+  font-size: var(--font-size-caption);
+  font-weight: 600;
+}
+
+.price {
+  margin-top: auto;
+  padding-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.price strong {
+  color: var(--color-text);
+  font-size: var(--font-size-h3);
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
