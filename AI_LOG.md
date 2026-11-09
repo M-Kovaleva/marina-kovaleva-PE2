@@ -25,3 +25,10 @@
 **Task:** Design an Open Graph image for link previews
 **What AI did:** Suggested the standard OG size 1200 × 630 px, proposed the layout: the "postcard" idea from the home page hero, listed the meta tags needed
 **What I did myself:** Created image, added the meta tags, checked the preview
+
+## 2026-11-09
+
+**Tool:** ChatGPT
+**Task:** Store the Noroff API key in .env and Vercel, and add types for environment variables
+**What AI did:** Explained how Vite reads .env (only variables with the `VITE_` prefix reach the app, and only after restarting the dev server) and why the key is visible in the browser anyway. Suggested a src/vite-env.d.ts file so `import.meta.env.VITE_NOROFF_API_KEY` is typed as `string` instead of `any`, and explained the parts: the `/// <reference types="vite/client" />` line, the `ImportMetaEnv` interface, and `readonly`. Explained the steps in Vercel: where to add the variable, why Vercel warns about the `VITE_` prefix, and why the site must be rebuilt (Redeploy or a new push) before the variable is used
+**What I did myself:** Created the API key once, added it to .env (ignored by Git) and wrote .env.example. Wrote src/vite-env.d.ts and checked it with `tsc`, lint and Prettier. In Vercel I added `VITE_NOROFF_API_KEY` for Production, Preview and Development, chose the "Config" type because a `VITE_` value is public in the browser, and redeployed the site
