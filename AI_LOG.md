@@ -35,7 +35,14 @@
 
 ## 2026-11-09
 
-**Tool:** Claude
+**Tool:** ChatGPT
 **Task:** Add Lucide icons (`lucide-react`) and understand the `npm audit` warnings after installing it
 **What AI did:** Explained the 10 moderate warnings: they all come from `minimatch`, which is used only by dev tools (ESLint, typescript-eslint), so they are not part of the built site. Suggested `npm audit --omit=dev` to check only the packages that reach the site, and warned not to run `npm audit fix --force`, because it would downgrade ESLint from 10 to 9 (a breaking change) and could break `eslint.config.js`
 **What I did myself:** Installed `lucide-react`, ran `npm audit` and `npm audit --omit=dev`, checked that the site packages have 0 vulnerabilities
+
+## 10.11.2026
+
+**Tool:** ChatGPT
+**Task:** Create a date helper for the search form. It gives today's date in the `YYYY-MM-DD` format.
+**What AI did:** Explained the helper which reads the date in local time instead of using `new Date().toISOString().slice(0, 10)`. `toISOString()` returns the date in UTC (Greenwich time). In Norway (UTC+1, or UTC+2 in summer), between midnight and 01:00 (02:00 in summer) that would give yesterday's date, so `min` on the date input would allow a past day. The helper builds the string from `getFullYear()`, `getMonth()` and `getDate()`, which use local time. Also explained two details: `getMonth()` counts months from 0, so it needs `+ 1`, and `padStart(2, '0')` turns "5" into "05".
+**What I did myself:** Typed the `toDateInputValue` helper into the project, checked that the search form blocks past dates.
