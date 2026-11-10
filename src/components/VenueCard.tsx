@@ -39,7 +39,11 @@ function VenueCard({ venue, search = '' }: VenueCardProps) {
       <div className={styles.body}>
         <div className={styles.titleRow}>
           <h3 className={styles.title}>
-            <Link to={{ pathname: `/venues/${id}`, search }} state={{ fromList: true }} className={styles.link}>
+            <Link
+              to={{ pathname: `/venues/${id}`, search }}
+              state={{ fromList: true }}
+              className={styles.link}
+            >
               {name}
             </Link>
           </h3>

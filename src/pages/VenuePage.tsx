@@ -14,7 +14,6 @@ function VenuePage() {
   const { venue, isLoading, error, retry } = useVenue(id)
   const location = useLocation()
   const navigate = useNavigate()
-  
 
   // Came here from the venue list (the card link sets this state)
   const cameFromList = (location.state as { fromList?: boolean } | null)?.fromList === true
