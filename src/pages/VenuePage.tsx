@@ -8,10 +8,11 @@ import VenueGallery from '../components/VenueGallery'
 import { useVenue } from '../hooks/useVenue'
 import { formatPlace, formatPrice } from '../utils/format'
 import styles from './VenuePage.module.css'
+import ErrorScreen from '../components/ErrorScreen'
 
 function VenuePage() {
   const { id = '' } = useParams()
-  const { venue, isLoading, error, retry } = useVenue(id)
+  const { venue, isLoading, error, notFound, retry } = useVenue(id)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -35,6 +36,16 @@ function VenuePage() {
       <div className={styles.page}>
         <Loader label="Loading venue…" />
       </div>
+    )
+  }
+
+  if (notFound) {
+    return (
+      <ErrorScreen
+        title="We couldn’t find this venue"
+        message="The link may be wrong, or the venue was removed by its owner."
+        link={{ to: '/', label: 'Back to all venues' }}
+      />
     )
   }
 
