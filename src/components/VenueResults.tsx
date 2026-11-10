@@ -6,6 +6,7 @@ import { useVenues } from '../hooks/useVenues'
 import { isAvailable, type StayFilter } from '../utils/availability'
 import buttons from '../styles/buttons.module.css'
 import styles from './VenueResults.module.css'
+import NoResults from './NoResults'
 
 interface VenueResultsProps {
   query: string
@@ -44,7 +45,16 @@ function VenueResults({ query, filter }: VenueResultsProps) {
 
       {!hasVenues && isLoading && <Loader label="Loading venues…" />}
       {!hasVenues && error && <ErrorMessage message={error} onRetry={retry} />}
-      {isEmpty && <p className={styles.status}>No venues found.</p>}
+      {isEmpty && (
+        <NoResults
+          title="No venues found"
+          message={
+            query
+              ? `We couldn’t find any venues for “${query}”. Try another place or word.`
+              : 'There are no venues to show right now.'
+          }
+        />
+      )}
 
       {hasVenues && (
         <>
@@ -57,9 +67,10 @@ function VenueResults({ query, filter }: VenueResultsProps) {
               ))}
             </ul>
           ) : (
-            <p className={styles.status}>
-              None of the venues loaded so far are free for your dates and guests.
-            </p>
+            <NoResults
+              title="No free venues yet"
+              message="None of the venues loaded so far are free for your dates and guests. Try other dates, fewer guests or load more venues."
+            />
           )}
 
           <div className={styles.more}>
