@@ -46,3 +46,10 @@
 **Task:** Create a date helper for the search form. It gives today's date in the `YYYY-MM-DD` format.
 **What AI did:** Explained the helper which reads the date in local time instead of using `new Date().toISOString().slice(0, 10)`. `toISOString()` returns the date in UTC (Greenwich time). In Norway (UTC+1, or UTC+2 in summer), between midnight and 01:00 (02:00 in summer) that would give yesterday's date, so `min` on the date input would allow a past day. The helper builds the string from `getFullYear()`, `getMonth()` and `getDate()`, which use local time. Also explained two details: `getMonth()` counts months from 0, so it needs `+ 1`, and `padStart(2, '0')` turns "5" into "05".
 **What I did myself:** Typed the `toDateInputValue` helper into the project, checked that the search form blocks past dates.
+
+## 10.11.2026
+
+**Tool:** ChatGPT
+**Task:** Choose an image format for the home page hero photo
+**What AI did:** Explained why WebP and not PNG. PNG is lossless: it keeps every pixel exactly, which is good for logos, icons, screenshots and images with transparency, but not for photos. In a photo almost every pixel is a bit different from its neighbours, so the file stays huge. WebP (like JPG) is lossy: it removes small details the eye does not notice, and it compresses better than JPG. Size comparison for the same 1920 px photo: PNG 3,326 KB, JPG 396 KB, WebP 231 KB. Why it matters: the hero is the largest image and loads first, so a lighter file makes the page open faster (Lighthouse also recommends "Serve images in modern formats"). All modern browsers support WebP. Rule for the project: photos - WebP or JPG; logos, icons and images with transparency - SVG or PNG. Resized my photo to 1920 px and 960 px and saved it as WebP.
+**What I did myself:** Added the two WebP files (`hero-960.webp`, `hero-1920.webp`) to `public/images/`

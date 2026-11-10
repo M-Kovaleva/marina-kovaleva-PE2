@@ -41,7 +41,7 @@ function SearchForm() {
   const [errors, setErrors] = useState<SearchErrors>({})
   const today = toDateInputValue(new Date())
 
-    function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
     const found = validate(from, to, guests, today)
