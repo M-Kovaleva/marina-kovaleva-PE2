@@ -1,0 +1,48 @@
+/* 2 columns on phones, 4 on desktop */
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 64rem) {
+  .list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-secondary);
+  font-size: var(--font-size-caption);
+  font-weight: 600;
+}
+
+/* Missing amenity: crossed out name, grey text */
+.missing .label {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.missing .status {
+  color: var(--color-text-muted);
+}
