@@ -67,7 +67,8 @@
 **Task:** Filter search results by free dates and guests
 **What AI did:**
 Explaned
+
 - How to implement it so nothing is missed, and which boundary cases to test
 - How to check that dates overlap: two date ranges overlap when each one starts before the other ends: `from < bookedTo && bookedFrom < to`; strict `<` (not `<=`) makes the check-out day free: a new guest can check in on the day the previous guest checks out. Booking sites work this way; dates are compared as "YYYY-MM-DD" strings, which sort the same way as dates; only check-in without check-out (e.g. typed into the URL by hand): no date filter, only the guest filter.
 - Time zones: the API stores dates in UTC, e.g. "2026-11-20T00:00:00.000Z". A booking made in Norway at local midnight can be stored as "2026-11-19T23:00:00.000Z"; cutting the first 10 characters (`slice(0, 10)`) would give 19 Nov instead of 20 Nov, one day off; fix: `toDateInputValue(new Date(booking.dateFrom))` converts to local time first, so both formats give 20 Nov in Norway.
-**What I did myself:** Added `isAvailable`, the `search` prop on `VenueCard`, the filter in `HomePage` and `VenueResults`. Tested on real data: `/?guests=10` shows only venues for 10+ guests; card links contain `?from=…&to=…`; changing dates updates the list without a loader. Tested on the real booking of "Villa in Norway" (9–12 Nov): no dates - shown; 10–11 Nov - hidden; 11–13 Nov - hidden; 12–14 Nov - shown (check-in on the check-out day)
+  **What I did myself:** Added `isAvailable`, the `search` prop on `VenueCard`, the filter in `HomePage` and `VenueResults`. Tested on real data: `/?guests=10` shows only venues for 10+ guests; card links contain `?from=…&to=…`; changing dates updates the list without a loader. Tested on the real booking of "Villa in Norway" (9–12 Nov): no dates - shown; 10–11 Nov - hidden; 11–13 Nov - hidden; 12–14 Nov - shown (check-in on the check-out day)

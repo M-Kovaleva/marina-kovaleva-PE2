@@ -5,7 +5,7 @@ const CATEGORIES = ['Apartment', 'Hotel', 'Cabin', 'Villa', 'Room']
 
 /**
  * Quick search by venue type
- * A click runs the same search with that word (dates and guests stay) 
+ * A click runs the same search with that word (dates and guests stay)
  * A click on the selected chip clears the search word
  */
 function CategoryChips() {
