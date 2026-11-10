@@ -8,9 +8,9 @@ interface NoResultsProps {
   message: string
 }
 
-/** Puts the cursor in the "Where" field of the search form (the browser scrolls to it) 
- * 
-*/
+/** Puts the cursor in the "Where" field of the search form (the browser scrolls to it)
+ *
+ */
 function focusSearch() {
   document.getElementById('search-where')?.focus()
 }

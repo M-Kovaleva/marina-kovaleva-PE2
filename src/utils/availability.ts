@@ -23,3 +23,7 @@ export function isAvailable(venue: Venue, { from, to, guests }: StayFilter): boo
     return from < bookedTo && bookedFrom < to
   })
 }
+/** True when the user chose dates or more than 1 guest, so the list must be filtered */
+export function hasFilter({ from, to, guests }: StayFilter): boolean {
+  return Boolean(from && to) || guests > 1
+}

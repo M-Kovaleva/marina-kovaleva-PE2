@@ -4,6 +4,7 @@ import SearchForm from '../components/SearchForm'
 import VenueResults from '../components/VenueResults'
 import styles from './HomePage.module.css'
 import CategoryChips from '../components/CategoryChips'
+import { hasFilter } from '../utils/availability'
 
 function HomePage() {
   const [searchParams] = useSearchParams()
@@ -21,7 +22,7 @@ function HomePage() {
       </Hero>
       <div className={styles.page}>
         <CategoryChips />
-        <VenueResults key={`results-${query}`} query={query} filter={filter} />
+        <VenueResults key={`results-${query}-${hasFilter(filter)}`} query={query} filter={filter} />
       </div>
     </div>
   )

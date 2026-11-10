@@ -21,11 +21,11 @@ const initialState: VenuesState = {
 }
 
 /**
- * Loads venues page by page: all venues (newest first) or search results for `query`
- * `loadMore` adds the next page to the list, `retry` repeats a failed request
- * Give the component that uses it `key={query}`, so a new search starts from page 1
+ * `pageSize` is how many venues one page has (the API allows up to 100)
+ * Give the component that uses it a `key` with the query and page size,
+ * so a new search starts from page 1
  */
-export function useVenues(query = '') {
+export function useVenues(query = '', pageSize = PAGE_SIZE) {
   const [page, setPage] = useState(1)
   const [attempt, setAttempt] = useState(0)
   const [state, setState] = useState<VenuesState>(initialState)
@@ -34,8 +34,8 @@ export function useVenues(query = '') {
     const controller = new AbortController()
 
     const request = query
-      ? searchVenues(query, page, PAGE_SIZE, controller.signal)
-      : getVenues(page, PAGE_SIZE, controller.signal)
+      ? searchVenues(query, page, pageSize, controller.signal)
+      : getVenues(page, pageSize, controller.signal)
     request
       .then((res) => {
         setState((prev) => {
@@ -57,7 +57,7 @@ export function useVenues(query = '') {
       })
 
     return () => controller.abort()
-  }, [query, page, attempt])
+  }, [query, pageSize, page, attempt])
 
   const isLoading = state.loadedPage < page && state.error === null
 
