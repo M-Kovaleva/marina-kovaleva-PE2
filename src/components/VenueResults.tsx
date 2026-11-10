@@ -3,18 +3,33 @@ import ErrorMessage from './ErrorMessage'
 import Loader from './Loader'
 import VenueCard from './VenueCard'
 import { useVenues } from '../hooks/useVenues'
+import { isAvailable, type StayFilter } from '../utils/availability'
 import buttons from '../styles/buttons.module.css'
 import styles from './VenueResults.module.css'
 
 interface VenueResultsProps {
   query: string
+  filter: StayFilter
 }
 
 /**
- * List of venues with "Show more": all venues, or search results when `query` is set
+ * List of venues with "Show more": all venues, or search results when `query` is set.
+ * When dates or guests are chosen, only the venues that are free for them are shown
  */
-function VenueResults({ query }: VenueResultsProps) {
+function VenueResults({ query, filter }: VenueResultsProps) {
   const { venues, total, isLastPage, isLoading, error, loadMore, retry } = useVenues(query)
+  const hasDates = Boolean(filter.from && filter.to)
+  const isFiltered = hasDates || filter.guests > 1
+  const shown = isFiltered ? venues.filter((venue) => isAvailable(venue, filter)) : venues
+
+  // Dates and guests go on to the venue page
+  const stay = new URLSearchParams()
+  if (hasDates) {
+    stay.set('from', filter.from)
+    stay.set('to', filter.to)
+  }
+  if (filter.guests > 1) stay.set('guests', String(filter.guests))
+
   const hasVenues = venues.length > 0
   const isEmpty = !hasVenues && !isLoading && !error
 
@@ -22,7 +37,9 @@ function VenueResults({ query }: VenueResultsProps) {
     <section className={styles.results} aria-labelledby="results-heading">
       <h2 id="results-heading" className={styles.heading}>
         {query ? `Results for “${query}”` : 'All venues'}
-        {total > 0 && <span className={styles.count}>{total.toLocaleString('en-US')}</span>}
+        {!isFiltered && total > 0 && (
+          <span className={styles.count}>{total.toLocaleString('en-US')}</span>
+        )}
       </h2>
 
       {!hasVenues && isLoading && <Loader label="Loading venues…" />}
@@ -31,17 +48,25 @@ function VenueResults({ query }: VenueResultsProps) {
 
       {hasVenues && (
         <>
-          <ul className={styles.grid}>
-            {venues.map((venue) => (
-              <li key={venue.id}>
-                <VenueCard venue={venue} />
-              </li>
-            ))}
-          </ul>
+          {shown.length > 0 ? (
+            <ul className={styles.grid}>
+              {shown.map((venue) => (
+                <li key={venue.id}>
+                  <VenueCard venue={venue} search={stay.toString()} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={styles.status}>
+              None of the venues loaded so far are free for your dates and guests.
+            </p>
+          )}
 
           <div className={styles.more}>
             <p className={styles.status} aria-live="polite">
-              Showing {venues.length} of {total.toLocaleString('en-US')} venues
+              {isFiltered
+                ? `Showing ${shown.length} available of ${venues.length} loaded venues`
+                : `Showing ${venues.length} of ${total.toLocaleString('en-US')} venues`}
             </p>
 
             {isLoading && <Loader label="Loading more venues…" />}

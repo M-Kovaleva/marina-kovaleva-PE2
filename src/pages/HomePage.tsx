@@ -7,6 +7,11 @@ import styles from './HomePage.module.css'
 function HomePage() {
   const [searchParams] = useSearchParams()
   const query = searchParams.get('q')?.trim() ?? ''
+  const filter = {
+    from: searchParams.get('from') ?? '',
+    to: searchParams.get('to') ?? '',
+    guests: Number(searchParams.get('guests')) || 1,
+  }
 
   return (
     <div>
@@ -14,7 +19,7 @@ function HomePage() {
         <SearchForm key={`search-${searchParams}`} />
       </Hero>
       <div className={styles.page}>
-        <VenueResults key={`results-${query}`} query={query} />
+        <VenueResults key={`results-${query}`} query={query} filter={filter} />
       </div>
     </div>
   )
