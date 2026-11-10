@@ -1,9 +1,10 @@
 /* Mobile: thin frame, low window */
 .hero {
   --frame-width: var(--space-4);
-  --window-height: 14rem;
+  --window-height: clamp(14rem, 50vw, 24rem);
 
   position: relative;
+  overflow: hidden;
   padding: var(--space-4) var(--page-padding);
 }
 
@@ -11,7 +12,7 @@
 @media (min-width: 64rem) {
   .hero {
     --frame-width: 2.25rem;
-    --window-height: 26rem;
+    --window-height: 30rem;
 
     padding-block: var(--space-12);
   }
@@ -25,14 +26,15 @@
   width: 100%;
   height: calc(var(--window-height) + 6rem);
   object-fit: cover;
-  object-position: 85% center;
+  object-position: right bottom;
 }
 
 /* Desktop: the photo fills the whole hero, behind the frame */
 @media (min-width: 64rem) {
   .photo {
-    height: 100%;
-    object-position: 70% center;
+    inset: auto 0 0;
+    height: 130%;
+    object-position: center bottom;
   }
 }
 

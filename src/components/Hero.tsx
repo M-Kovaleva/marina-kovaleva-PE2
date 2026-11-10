@@ -13,14 +13,18 @@ interface HeroProps {
 function Hero({ children }: HeroProps) {
   return (
     <section className={styles.hero}>
-      <img
-        className={styles.photo}
-        src="/public/hero-1920.webp"
-        srcSet="/public/hero-960.webp 960w, /public/hero-1920.webp 1920w"
-        sizes="100vw"
-        alt="Red wooden cabin by a fjord in Lofoten, Norway"
-        fetchPriority="high"
-      />
+      {/* Phones get the whole photo, wider screens a crop closer to the cabin */}
+      <picture>
+        <source media="(max-width: 39.99rem)" srcSet="/public/hero-mobile.webp" />
+        <img
+          className={styles.photo}
+          src="/public/hero-1920.webp"
+          srcSet="/public/hero-960.webp 960w, /public/hero-1920.webp 1920w"
+          sizes="100vw"
+          alt="Red wooden cabin by a fjord in Lofoten, Norway"
+          fetchPriority="high"
+        />
+      </picture>
 
       <div className={styles.frame}>
         <div className={styles.window} />
