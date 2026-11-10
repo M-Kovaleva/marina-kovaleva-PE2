@@ -19,12 +19,14 @@ const priceFormat = new Intl.NumberFormat('en-US', {
 
 interface VenueCardProps {
   venue: Venue
+  /** Search params for the venue page link, e.g. "from=2026-11-14&to=2026-11-17&guests=2" */
+  search?: string
 }
 
 /**
  * Card in the venue list. The whole card is a link to the venue page
  */
-function VenueCard({ venue }: VenueCardProps) {
+function VenueCard({ venue, search = '' }: VenueCardProps) {
   const { id, name, media, price, maxGuests, rating, meta, location } = venue
   const place = [location.city, location.country].filter(Boolean).join(', ')
   const amenities = AMENITIES.filter((amenity) => meta[amenity.key])
@@ -42,7 +44,7 @@ function VenueCard({ venue }: VenueCardProps) {
       <div className={styles.body}>
         <div className={styles.titleRow}>
           <h3 className={styles.title}>
-            <Link to={`/venues/${id}`} className={styles.link}>
+            <Link to={{ pathname: `/venues/${id}`, search }} className={styles.link}>
               {name}
             </Link>
           </h3>
