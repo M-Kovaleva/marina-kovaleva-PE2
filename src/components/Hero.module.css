@@ -1,0 +1,62 @@
+/* Mobile: thin frame, low window */
+.hero {
+  --frame-width: var(--space-4);
+  --window-height: 14rem;
+
+  position: relative;
+  padding: var(--space-4) var(--page-padding);
+}
+
+/* Desktop: 960px frame, thicker border, taller window */
+@media (min-width: 64rem) {
+  .hero {
+    --frame-width: 2.25rem;
+    --window-height: 26rem;
+
+    padding-block: var(--space-12);
+  }
+}
+
+/* Mobile: the photo covers only the top of the hero, so the red cabin
+   lands inside the window. The white strip hangs below the photo */
+.photo {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: calc(var(--window-height) + 6rem);
+  object-fit: cover;
+  object-position: 85% center;
+}
+
+/* Desktop: the photo fills the whole hero, behind the frame */
+@media (min-width: 64rem) {
+  .photo {
+    height: 100%;
+    object-position: 70% center;
+  }
+}
+
+.frame {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Open window: only a white border, the photo shows through the middle */
+.window {
+  height: var(--window-height);
+  border: var(--frame-width) solid var(--color-white);
+  border-bottom: 0;
+}
+
+.strip {
+  padding: var(--space-6) var(--frame-width) var(--frame-width);
+  background-color: var(--color-white);
+}
+
+.title {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-h1);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
