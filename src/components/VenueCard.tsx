@@ -3,6 +3,7 @@ import { MapPin, Star, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
 import type { Venue, VenueMeta } from '../types/venue'
 import styles from './VenueCard.module.css'
+import { formatPlace, formatPrice } from '../utils/format'
 
 const AMENITIES: { key: keyof VenueMeta; label: string }[] = [
   { key: 'wifi', label: 'Wi-Fi' },
@@ -10,12 +11,6 @@ const AMENITIES: { key: keyof VenueMeta; label: string }[] = [
   { key: 'breakfast', label: 'Breakfast' },
   { key: 'pets', label: 'Pets' },
 ]
-
-const priceFormat = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  maximumFractionDigits: 0,
-})
 
 interface VenueCardProps {
   venue: Venue
@@ -28,7 +23,7 @@ interface VenueCardProps {
  */
 function VenueCard({ venue, search = '' }: VenueCardProps) {
   const { id, name, media, price, maxGuests, rating, meta, location } = venue
-  const place = [location.city, location.country].filter(Boolean).join(', ')
+  const place = formatPlace(location)
   const amenities = AMENITIES.filter((amenity) => meta[amenity.key])
 
   return (
@@ -74,7 +69,7 @@ function VenueCard({ venue, search = '' }: VenueCardProps) {
         )}
 
         <p className={styles.price}>
-          <strong>{priceFormat.format(price)}</strong> / night
+          <strong>{formatPrice(price)}</strong> / night
         </p>
       </div>
     </article>
