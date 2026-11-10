@@ -4,8 +4,97 @@
   padding: var(--space-6) var(--page-padding) var(--space-16);
 }
 
-.title {
+/* Mobile: info, then the price card. Desktop: info left, card right */
+.layout {
+  display: grid;
+  gap: var(--space-8);
   margin-top: var(--space-6);
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: 1fr 25rem;
+    align-items: start;
+    gap: var(--space-16);
+  }
+}
+
+.content {
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-h2);
+  font-weight: 800;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  color: var(--color-text-muted);
+  list-style: none;
+}
+
+.facts li,
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.rating {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.rating svg {
+  fill: currentColor;
+}
+
+.new {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-muted);
+  color: var(--color-text);
+  font-size: var(--font-size-caption);
+  font-weight: 700;
+}
+
+.section {
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-surface-muted);
+}
+
+.heading {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-h3);
+  font-weight: 800;
+}
+
+/* Keeps the line breaks the owner typed */
+.description {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.card {
+  padding: var(--space-6);
+  border: 1px solid var(--color-surface-muted);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.price {
+  color: var(--color-text-muted);
+}
+
+.price strong {
+  color: var(--color-text);
   font-size: var(--font-size-h2);
   font-weight: 800;
 }
