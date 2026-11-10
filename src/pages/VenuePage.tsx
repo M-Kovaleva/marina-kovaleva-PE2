@@ -3,6 +3,7 @@ import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import { useVenue } from '../hooks/useVenue'
 import styles from './VenuePage.module.css'
+import VenueGallery from '../components/VenueGallery'
 
 function VenuePage() {
   const { id = '' } = useParams()
@@ -31,6 +32,7 @@ function VenuePage() {
   return (
     <div className={styles.page}>
       <title>{`${venue.name} · Holidaze`}</title>
+      <VenueGallery media={venue.media} name={venue.name} />
       <h1 className={styles.title}>{venue.name}</h1>
     </div>
   )
