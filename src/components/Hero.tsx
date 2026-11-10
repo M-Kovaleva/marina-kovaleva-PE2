@@ -15,11 +15,11 @@ function Hero({ children }: HeroProps) {
     <section className={styles.hero}>
       {/* Phones get the whole photo, wider screens a crop closer to the cabin */}
       <picture>
-        <source media="(max-width: 39.99rem)" srcSet="/public/hero-mobile.webp" />
+        <source media="(max-width: 39.99rem)" srcSet="/hero-mobile.webp" />
         <img
           className={styles.photo}
-          src="/public/hero-1920.webp"
-          srcSet="/public/hero-960.webp 960w, /public/hero-1920.webp 1920w"
+          src="/hero-1920.webp"
+          srcSet="/hero-960.webp 960w, /hero-1920.webp 1920w"
           sizes="100vw"
           alt="Red wooden cabin by a fjord in Lofoten, Norway"
           fetchPriority="high"
