@@ -7,13 +7,15 @@ interface VenueImageProps {
   media?: Media
   fallbackAlt: string
   className?: string
+  /** "eager" for the first photo on the screen, so it is not delayed */
+  loading?: 'lazy' | 'eager'
 }
 
 /**
  * Venue photo. Shows a "No photo yet" placeholder when there is no image
  * or the image URL is broken
  */
-function VenueImage({ media, fallbackAlt, className = '' }: VenueImageProps) {
+function VenueImage({ media, fallbackAlt, className = '', loading = 'lazy' }: VenueImageProps) {
   const [failedUrl, setFailedUrl] = useState<string | null>(null)
   const url = media?.url
 
@@ -35,7 +37,7 @@ function VenueImage({ media, fallbackAlt, className = '' }: VenueImageProps) {
       className={`${styles.image} ${className}`}
       src={url}
       alt={media.alt || fallbackAlt}
-      loading="lazy"
+      loading={loading}
       onError={() => setFailedUrl(url)}
     />
   )
