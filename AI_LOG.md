@@ -53,3 +53,13 @@
 **Task:** Choose an image format for the home page hero photo
 **What AI did:** Explained why WebP and not PNG. PNG is lossless: it keeps every pixel exactly, which is good for logos, icons, screenshots and images with transparency, but not for photos. In a photo almost every pixel is a bit different from its neighbours, so the file stays huge. WebP (like JPG) is lossy: it removes small details the eye does not notice, and it compresses better than JPG. Size comparison for the same 1920 px photo: PNG 3,326 KB, JPG 396 KB, WebP 231 KB. Why it matters: the hero is the largest image and loads first, so a lighter file makes the page open faster (Lighthouse also recommends "Serve images in modern formats"). All modern browsers support WebP. Rule for the project: photos - WebP or JPG; logos, icons and images with transparency - SVG or PNG. Resized my photo to 1920 px and 960 px and saved it as WebP.
 **What I did myself:** Added the two WebP files (`hero-960.webp`, `hero-1920.webp`) to `public/images/`
+
+## 10.11.2026
+
+**Tool:** ChatGPT
+
+**Task:** Fix the hero photo that showed locally but was missing on the live site (Vercel).
+
+**What AI did:** Found the cause: `Hero.tsx` used paths with `/public` (`/public/hero-1920.webp`, `/public/hero-960.webp`, `/public/hero-mobile.webp`). The image files themselves were committed (`git ls-files` showed them), so only the paths were wrong. Explained why it worked locally but not in production. `npm run dev` accepts `/public/...` and still serves the file. `npm run build` copies the contents of `public/` straight into the root of `dist/`, with no `public` folder, so on Vercel the file is at `/hero-1920.webp` and `/public/hero-1920.webp` returns 404. Files from `public/` must be referenced from the root, without `public` (as in the Vite docs). Recommended checking the production build with `npm run build && npm run preview` (`http://localhost:4173`) before pushing changes to images, paths or environment variables, because `npm run dev` does not show this kind of error.
+
+**What I did myself:** Removed `/public` from the three paths in `Hero.tsx`, checked the build with `npm run build` and `npm run preview`
