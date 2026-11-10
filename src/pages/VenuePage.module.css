@@ -4,6 +4,15 @@
   padding: var(--space-6) var(--page-padding) var(--space-16);
 }
 
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+}
+
 /* Mobile: info, then the price card. Desktop: info left, card right */
 .layout {
   display: grid;

@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom'
-import { MapPin, Star, Users } from 'lucide-react'
+import { useEffect, type MouseEvent } from 'react'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { ChevronLeft, MapPin, Star, Users } from 'lucide-react'
 import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import VenueAmenities from '../components/VenueAmenities'
@@ -11,6 +12,24 @@ import styles from './VenuePage.module.css'
 function VenuePage() {
   const { id = '' } = useParams()
   const { venue, isLoading, error, retry } = useVenue(id)
+  const location = useLocation()
+  const navigate = useNavigate()
+  
+
+  // Came here from the venue list (the card link sets this state)
+  const cameFromList = (location.state as { fromList?: boolean } | null)?.fromList === true
+
+  // A new page starts at the top, not where the list was scrolled to
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [id])
+
+  /** Back to the same list and search: browser history if we came from it, else the home page */
+  function handleBack(event: MouseEvent<HTMLAnchorElement>) {
+    if (!cameFromList) return
+    event.preventDefault()
+    navigate(-1)
+  }
 
   if (isLoading) {
     return (
@@ -32,12 +51,20 @@ function VenuePage() {
     )
   }
 
-  const { name, description, media, price, maxGuests, rating, meta, location } = venue
-  const place = formatPlace(location)
+  const { name, description, media, price, maxGuests, rating, meta } = venue
+  const place = formatPlace(venue.location)
 
   return (
     <div className={styles.page}>
       <title>{`${name} · Holidaze`}</title>
+      <Link
+        to={{ pathname: '/', search: location.search }}
+        className={styles.back}
+        onClick={handleBack}
+      >
+        <ChevronLeft size={18} aria-hidden="true" />
+        Back to venues
+      </Link>
       <VenueGallery media={media} name={name} />
 
       <div className={styles.layout}>

@@ -67,6 +67,7 @@
 **Task:** Filter search results by free dates and guests
 **What AI did:**
 Explaned
+
 - How to implement it so nothing is missed, and which boundary cases to test
 - How to check that dates overlap: two date ranges overlap when each one starts before the other ends: `from < bookedTo && bookedFrom < to`; strict `<` (not `<=`) makes the check-out day free: a new guest can check in on the day the previous guest checks out. Booking sites work this way; dates are compared as "YYYY-MM-DD" strings, which sort the same way as dates; only check-in without check-out (e.g. typed into the URL by hand): no date filter, only the guest filter.
 - Time zones: the API stores dates in UTC, e.g. "2026-11-20T00:00:00.000Z". A booking made in Norway at local midnight can be stored as "2026-11-19T23:00:00.000Z"; cutting the first 10 characters (`slice(0, 10)`) would give 19 Nov instead of 20 Nov, one day off; fix: `toDateInputValue(new Date(booking.dateFrom))` converts to local time first, so both formats give 20 Nov in Norway.
@@ -76,5 +77,5 @@ Explaned
 
 **Tool:** ChatGPT
 **Task:** Choose how `VenueImage` should load photos on the venue page
-**What AI did:** Explained why one loading mode for all photos is not enough. Until now every photo used `loading="lazy"`: the browser loads it only when it is about to scroll into view. This is good for the venue cards on the home page (many images, most of them below the fold). But the big photo at the top of the venue page is visible right away. With `lazy` the browser waits to load it, so it appears with a delay. This hurts LCP (Largest Contentful Paint), and Lighthouse lowers the Performance score. Suggested an optional `loading` prop (`'lazy' | 'eager'`) on `VenueImage` with `'lazy'` as the default, so the home page cards keep working as before and only the main gallery photo uses `loading="eager"`. 
+**What AI did:** Explained why one loading mode for all photos is not enough. Until now every photo used `loading="lazy"`: the browser loads it only when it is about to scroll into view. This is good for the venue cards on the home page (many images, most of them below the fold). But the big photo at the top of the venue page is visible right away. With `lazy` the browser waits to load it, so it appears with a delay. This hurts LCP (Largest Contentful Paint), and Lighthouse lowers the Performance score. Suggested an optional `loading` prop (`'lazy' | 'eager'`) on `VenueImage` with `'lazy'` as the default, so the home page cards keep working as before and only the main gallery photo uses `loading="eager"`.
 **What I did myself:** Added the `loading` prop to the `VenueImage` interface (`loading?: 'lazy' | 'eager'`), set the default in the function signature (`loading = 'lazy'`), replaced `loading="lazy"` with `loading={loading}` in `<img>`, used `loading="eager"` for the main photo in `VenueGallery`
