@@ -5,6 +5,7 @@
 }
 
 .title {
+  margin-bottom: var(--space-6);
   font-size: var(--font-size-h1);
   font-weight: 800;
   letter-spacing: -0.02em;
