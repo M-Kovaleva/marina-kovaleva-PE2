@@ -15,8 +15,8 @@ function Hero({ children }: HeroProps) {
     <section className={styles.hero}>
       <img
         className={styles.photo}
-        src="/images/hero-1920.webp"
-        srcSet="/images/hero-960.webp 960w, /images/hero-1920.webp 1920w"
+        src="/public/hero-1920.webp"
+        srcSet="/public/hero-960.webp 960w, /public/hero-1920.webp 1920w"
         sizes="100vw"
         alt="Red wooden cabin by a fjord in Lofoten, Norway"
         fetchPriority="high"
