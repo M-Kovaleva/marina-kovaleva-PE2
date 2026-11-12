@@ -48,5 +48,5 @@ export function useVenue(id: string) {
     setAttempt((a) => a + 1)
   }
 
-    return { venue: state.venue, isLoading, error: state.error, notFound: state.notFound, retry }
+  return { venue: state.venue, isLoading, error: state.error, notFound: state.notFound, retry }
 }
