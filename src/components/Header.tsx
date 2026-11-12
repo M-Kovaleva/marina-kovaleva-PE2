@@ -21,10 +21,18 @@ function Header() {
               Log out
             </button>
           </>
-        ) : (
-          <button type="button" onClick={() => openAuth('login')}>
-            Log in
-          </button>
+         ) : (
+          <>
+            <button type="button" onClick={() => openAuth('login')}>
+              Log in
+            </button>
+            <button type="button" onClick={() => openAuth('register')}>
+              Register
+            </button>
+            <button type="button" onClick={() => openAuth('register-manager')}>
+              List your venue
+            </button>
+          </>
         )}
       </nav>
     </header>
