@@ -11,8 +11,11 @@ export interface User {
   accessToken: string
 }
 
-/** Which form the auth modal shows */
-export type AuthView = 'login'
+/**
+ * Which form the auth modal shows
+ * 'register-manager' = Register with "Venue manager" already selected (from "List your venue")
+ */
+export type AuthView = 'login' | 'register' | 'register-manager'
 
 export interface AuthContextValue {
   user: User | null
