@@ -11,11 +11,18 @@ export interface User {
   accessToken: string
 }
 
+/** Which form the auth modal shows */
+export type AuthView = 'login'
+
 export interface AuthContextValue {
   user: User | null
   isManager: boolean
   login: (data: LoginData) => Promise<void>
   logout: () => void
+  /** The open auth modal, or null when it is closed */
+  authView: AuthView | null
+  openAuth: (view: AuthView) => void
+  closeAuth: () => void
 }
 
 /** Filled by AuthProvider. Read it with useAuth() */
