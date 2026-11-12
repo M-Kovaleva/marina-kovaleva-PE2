@@ -57,7 +57,7 @@ function Modal({ isOpen, onClose, title, description, children }: ModalProps) {
               {description}
             </p>
           )}
-          {children}
+          <div className={styles.body}>{children}</div>
         </div>
       )}
     </dialog>
