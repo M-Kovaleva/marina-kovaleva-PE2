@@ -1,0 +1,186 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--color-surface-muted);
+  background-color: var(--color-white);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--page-max-width);
+  height: 72px;
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+.home {
+  text-decoration: none;
+}
+
+.burger {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: calc(-1 * var(--space-2));
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+/* Phone: the menu is a panel under the bar, hidden until the burger is pressed */
+.nav {
+  display: none;
+}
+
+.nav.open {
+  position: absolute;
+  top: 72px;
+  right: 0;
+  left: 0;
+  display: block;
+  height: calc(100dvh - 72px);
+  padding: var(--space-2) var(--page-padding) var(--space-8);
+  overflow-y: auto;
+  background-color: var(--color-white);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list > li:not(.action, .user) {
+  border-bottom: 1px solid var(--color-surface-muted);
+}
+
+/* Text links and text buttons look the same */
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-3) 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover,
+.link[aria-current='page'] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.action {
+  margin-top: var(--space-6);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+}
+
+.user .avatar {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-body);
+}
+
+.name {
+  display: block;
+  font-weight: 700;
+}
+
+.role {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-caption);
+}
+
+.avatar {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background-color: var(--color-surface-muted);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  object-fit: cover;
+}
+
+.badge {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-muted);
+  font-size: var(--font-size-caption);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.desktopOnly {
+  display: none;
+}
+
+/* Desktop: links in one row, no burger */
+@media (min-width: 48rem) {
+  .burger,
+  .phoneOnly {
+    display: none;
+  }
+
+  .desktopOnly {
+    display: block;
+  }
+
+  .nav,
+  .nav.open {
+    position: static;
+    display: block;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    background: none;
+  }
+
+  .list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .list > li:not(.action, .user) {
+    border-bottom: 0;
+  }
+
+  .link {
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .profile {
+    gap: var(--space-2);
+  }
+
+  .action {
+    margin-top: 0;
+  }
+}
