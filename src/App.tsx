@@ -6,6 +6,8 @@ import VenuePage from './pages/VenuePage'
 import ProfilePage from './pages/ProfilePage'
 import NotFoundPage from './pages/NotFoundPage'
 import styles from './App.module.css'
+import AuthModal from './components/AuthModal'
+import RequireLogin from './components/RequireLogin'
 
 function App() {
   return (
@@ -15,11 +17,16 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/venues/:id" element={<VenuePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile"
+            element={
+              <RequireLogin>
+                <ProfilePage />
+              </RequireLogin>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />
+      <AuthModal />
     </div>
   )
 }
