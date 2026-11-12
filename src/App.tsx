@@ -17,11 +17,14 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/venues/:id" element={<VenuePage />} />
-          <Route path="/profile"
+          <Route
+            path="/profile"
             element={
               <RequireLogin>
                 <ProfilePage />
-              </RequireLogin>} />
+              </RequireLogin>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
