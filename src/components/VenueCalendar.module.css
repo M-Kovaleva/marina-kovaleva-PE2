@@ -41,8 +41,14 @@
   text-decoration: line-through;
 }
 
+/* Grey circle behind a booked day: on the button, or on the cell itself
+   when the calendar only shows availability (then there is no button) */
 .booked :global(.rdp-day_button) {
   background-color: var(--color-surface-muted);
+}
+
+.booked:not(:has(button)) {
+  background: radial-gradient(circle, var(--color-surface-muted) 18px, transparent 19px);
 }
 
 .legend {

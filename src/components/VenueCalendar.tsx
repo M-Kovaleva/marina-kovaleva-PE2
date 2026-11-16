@@ -7,8 +7,9 @@ import styles from './VenueCalendar.module.css'
 interface VenueCalendarProps {
   /** Booked nights as "YYYY-MM-DD" (from getBookedNights) */
   bookedNights: string[]
-  range: DateRange | undefined
-  onChange: (range: DateRange | undefined) => void
+  /** Without range and onChange the calendar only shows availability (venue managers) */
+  range?: DateRange
+  onChange?: (range: DateRange | undefined) => void
 }
 
 /**
@@ -31,6 +32,7 @@ function VenueCalendar({ bookedNights, range, onChange }: VenueCalendarProps) {
   ]
 
   function handleSelect(_: DateRange | undefined, day: Date) {
+    if (!onChange) return
     const from = range?.from
     if (choosingCheckOut && from && day > from && isRangeFree(from, day, bookedNights)) {
       onChange({ from, to: day })
@@ -41,17 +43,27 @@ function VenueCalendar({ bookedNights, range, onChange }: VenueCalendarProps) {
 
   return (
     <div className={styles.calendar}>
-      <DayPicker
-        mode="range"
-        selected={range}
-        onSelect={handleSelect}
-        disabled={disabled}
-        modifiers={{ booked }}
-        modifiersClassNames={{ booked: styles.booked }}
-        defaultMonth={range?.from ?? today}
-        startMonth={today}
-        weekStartsOn={1}
-      />
+      {onChange ? (
+        <DayPicker
+          mode="range"
+          selected={range}
+          onSelect={handleSelect}
+          disabled={disabled}
+          modifiers={{ booked }}
+          modifiersClassNames={{ booked: styles.booked }}
+          defaultMonth={range?.from ?? today}
+          startMonth={today}
+          weekStartsOn={1}
+        />
+      ) : (
+        <DayPicker
+          disabled={disabled}
+          modifiers={{ booked }}
+          modifiersClassNames={{ booked: styles.booked }}
+          startMonth={today}
+          weekStartsOn={1}
+        />
+      )}
 
       <ul className={styles.legend} aria-label="Legend">
         <li>
@@ -62,10 +74,12 @@ function VenueCalendar({ bookedNights, range, onChange }: VenueCalendarProps) {
           <span className={`${styles.swatch} ${styles.taken}`} aria-hidden="true" />
           Booked
         </li>
-        <li>
-          <span className={`${styles.swatch} ${styles.chosen}`} aria-hidden="true" />
-          Your stay
-        </li>
+        {onChange && (
+          <li>
+            <span className={`${styles.swatch} ${styles.chosen}`} aria-hidden="true" />
+            Your stay
+          </li>
+        )}
       </ul>
     </div>
   )
