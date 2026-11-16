@@ -13,7 +13,7 @@
   font-weight: 600;
 }
 
-/* Mobile: info, then the price card. Desktop: info left, card right */
+/* Mobile: info, then the booking panel. Desktop: info left, panel right */
 .layout {
   display: grid;
   gap: var(--space-8);
@@ -88,22 +88,4 @@
 .description {
   white-space: pre-line;
   overflow-wrap: anywhere;
-}
-
-.card {
-  padding: var(--space-6);
-  border: 1px solid var(--color-surface-muted);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-white);
-  box-shadow: var(--shadow);
-}
-
-.price {
-  color: var(--color-text-muted);
-}
-
-.price strong {
-  color: var(--color-text);
-  font-size: var(--font-size-h2);
-  font-weight: 800;
 }

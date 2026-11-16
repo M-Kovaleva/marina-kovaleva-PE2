@@ -6,9 +6,10 @@ import Loader from '../components/Loader'
 import VenueAmenities from '../components/VenueAmenities'
 import VenueGallery from '../components/VenueGallery'
 import { useVenue } from '../hooks/useVenue'
-import { formatPlace, formatPrice } from '../utils/format'
+import { formatPlace } from '../utils/format'
 import styles from './VenuePage.module.css'
 import ErrorScreen from '../components/ErrorScreen'
+import BookingPanel from '../components/BookingPanel'
 
 function VenuePage() {
   const { id = '' } = useParams()
@@ -61,7 +62,7 @@ function VenuePage() {
     )
   }
 
-  const { name, description, media, price, maxGuests, rating, meta } = venue
+  const { name, description, media, maxGuests, rating, meta } = venue
   const place = formatPlace(venue.location)
 
   return (
@@ -123,11 +124,7 @@ function VenuePage() {
         </div>
 
         {/* Becomes the booking card in Sprint 4 */}
-        <aside className={styles.card} aria-label="Price">
-          <p className={styles.price}>
-            <strong>{formatPrice(price)}</strong> / night
-          </p>
-        </aside>
+        <BookingPanel venue={venue} />
       </div>
     </div>
   )

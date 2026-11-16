@@ -1,0 +1,67 @@
+.panel {
+  padding: var(--space-6);
+  border: 1px solid var(--color-surface-muted);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.price {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.price strong {
+  color: var(--color-text);
+  font-size: var(--font-size-h2);
+  font-weight: 800;
+}
+
+/* Check-in | Check-out boxes */
+.dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: var(--space-4) 0 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.dates > div {
+  padding: var(--space-2) var(--space-3);
+}
+
+.dates > div + div {
+  border-left: 1px solid var(--color-border);
+}
+
+.dates dt {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-caption);
+  font-weight: 700;
+}
+
+.dates dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.clear {
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
