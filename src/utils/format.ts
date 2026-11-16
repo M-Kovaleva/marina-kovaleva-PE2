@@ -15,3 +15,14 @@ export function formatPrice(price: number): string {
 export function formatPlace(location: Location): string {
   return [location.city, location.country].filter(Boolean).join(', ')
 }
+
+const dateFormat = new Intl.DateTimeFormat('en-GB', {
+  weekday: 'short',
+  day: 'numeric',
+  month: 'short',
+})
+
+/** Date as "Fri 20 Nov" */
+export function formatDate(date: Date): string {
+  return dateFormat.format(date)
+}
