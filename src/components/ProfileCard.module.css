@@ -33,3 +33,7 @@
   font-size: var(--font-size-caption);
   font-weight: 700;
 }
+
+.change {
+  margin-top: var(--space-2);
+}

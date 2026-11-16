@@ -35,7 +35,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     setUser(null)
   }
 
-   function updateUser(changes: Partial<User>) {
+  function updateUser(changes: Partial<User>) {
     if (!user) return
     const updated = { ...user, ...changes }
     saveUser(updated)

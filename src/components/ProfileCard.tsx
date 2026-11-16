@@ -1,14 +1,16 @@
-import { Mail } from 'lucide-react'
+import { ImageIcon, Mail } from 'lucide-react'
 import Avatar from './Avatar'
 import type { User } from '../context/AuthContext'
+import buttons from '../styles/buttons.module.css'
 import styles from './ProfileCard.module.css'
 
 interface ProfileCardProps {
   user: User
+  onChangeAvatar: () => void
 }
 
 /** Avatar, name, email and role of the logged-in user */
-function ProfileCard({ user }: ProfileCardProps) {
+function ProfileCard({ user, onChangeAvatar }: ProfileCardProps) {
   return (
     <section className={styles.card} aria-labelledby="profile-name">
       <Avatar
@@ -25,6 +27,14 @@ function ProfileCard({ user }: ProfileCardProps) {
         {user.email}
       </p>
       <p className={styles.role}>{user.venueManager ? 'Venue manager' : 'Customer'}</p>
+      <button
+        type="button"
+        className={`${buttons.secondary} ${styles.change}`}
+        onClick={onChangeAvatar}
+      >
+        <ImageIcon size={18} aria-hidden="true" />
+        Change avatar
+      </button>
     </section>
   )
 }
