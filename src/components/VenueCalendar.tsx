@@ -24,9 +24,7 @@ function VenueCalendar({ bookedNights, range, onChange }: VenueCalendarProps) {
   // While choosing check-out, the first booked night after check-in can be the check-out day
   // (we leave in the morning, the next guest arrives later that day)
   const fromKey = range?.from ? toDateInputValue(range.from) : ''
-  const checkOutOnly = choosingCheckOut
-    ? bookedNights.find((night) => night > fromKey)
-    : undefined
+  const checkOutOnly = choosingCheckOut ? bookedNights.find((night) => night > fromKey) : undefined
   const disabled = [
     { before: today },
     ...booked.filter((night) => toDateInputValue(night) !== checkOutOnly),
