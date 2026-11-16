@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import type { DateRange } from 'react-day-picker'
-import { CircleCheck, Minus, Plus, TriangleAlert } from 'lucide-react'
+import { CircleCheck, Info, Minus, Plus, TriangleAlert } from 'lucide-react'
 import VenueCalendar from './VenueCalendar'
 import { useAuth } from '../hooks/useAuth'
 import { createBooking } from '../services/bookings'
@@ -37,7 +37,7 @@ function getStartGuests(guests: string | null, maxGuests: number) {
  * Visitors see "Log in to book"; the chosen dates stay while the login modal is open
  */
 function BookingPanel({ venue }: BookingPanelProps) {
-  const { user, openAuth } = useAuth()
+  const { user, isManager, openAuth } = useAuth()
   const [searchParams] = useSearchParams()
   // Bookings made here are added at once, so the calendar shows them without reloading
   const [newBookings, setNewBookings] = useState<Booking[]>([])
@@ -89,6 +89,27 @@ function BookingPanel({ venue }: BookingPanelProps) {
       setApiError(error instanceof Error ? error.message : 'Something went wrong.')
     }
     setIsSending(false)
+  }
+
+  // Venue managers cannot book: they see the availability only
+  if (isManager) {
+    const isOwner = venue.owner?.name === user?.name
+    return (
+      <aside className={styles.panel} aria-labelledby="booking-heading">
+        <p className={styles.price}>
+          <strong>{formatPrice(venue.price)}</strong> / night
+        </p>
+        <h2 id="booking-heading" className={styles.heading}>
+          Availability
+        </h2>
+        <p className={styles.hint}>Booked dates are crossed out.</p>
+        <VenueCalendar bookedNights={bookedNights} />
+        <p className={styles.info}>
+          <Info size={18} aria-hidden="true" />
+          {isOwner ? 'This is your venue.' : 'Booking is available for customer accounts only.'}
+        </p>
+      </aside>
+    )
   }
 
   return (
