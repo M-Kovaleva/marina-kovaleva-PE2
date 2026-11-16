@@ -1,0 +1,83 @@
+/* Our colours for react-day-picker (it reads these variables) */
+.calendar :global(.rdp-root) {
+  --rdp-accent-color: var(--color-text);
+  --rdp-accent-background-color: var(--color-surface-muted);
+  --rdp-day-height: 40px;
+  --rdp-day-width: auto;
+  --rdp-day_button-height: 38px;
+  --rdp-day_button-width: 38px;
+  --rdp-disabled-opacity: 0.35;
+  --rdp-today-color: var(--color-primary);
+
+  font-size: var(--font-size-small);
+}
+
+/* The month fills the panel: 7 equal columns */
+.calendar :global(.rdp-months),
+.calendar :global(.rdp-month) {
+  width: 100%;
+  max-width: none;
+}
+
+.calendar :global(.rdp-month_grid) {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.calendar :global(.rdp-day) {
+  text-align: center;
+}
+
+.calendar :global(.rdp-day_button) {
+  margin: 0 auto;
+}
+
+.calendar :global(.rdp-day_button:hover:not(:disabled)) {
+  background-color: var(--color-surface-muted);
+}
+
+/* Booked night: crossed out, so it does not rely on colour only */
+.booked {
+  text-decoration: line-through;
+}
+
+.booked :global(.rdp-day_button) {
+  background-color: var(--color-surface-muted);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-caption);
+  list-style: none;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.swatch {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+}
+
+.free {
+  background-color: var(--color-white);
+}
+
+.taken {
+  background-color: var(--color-surface-muted);
+}
+
+.chosen {
+  border-color: var(--color-text);
+  background-color: var(--color-text);
+}
