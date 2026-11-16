@@ -1,0 +1,19 @@
+/* Mobile: profile card, then the lists. Desktop: card left, lists right */
+.page {
+  display: grid;
+  gap: var(--space-8);
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--page-padding) var(--space-16);
+}
+
+@media (min-width: 64rem) {
+  .page {
+    grid-template-columns: 20rem 1fr;
+    align-items: start;
+  }
+}
+
+.content {
+  min-width: 0;
+}
