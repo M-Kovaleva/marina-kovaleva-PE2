@@ -22,6 +22,8 @@ export interface AuthContextValue {
   isManager: boolean
   login: (data: LoginData) => Promise<void>
   logout: () => void
+  /** Changes saved user fields (e.g. a new avatar) everywhere at once */
+  updateUser: (changes: Partial<User>) => void
   /** The open auth modal, or null when it is closed */
   authView: AuthView | null
   openAuth: (view: AuthView) => void

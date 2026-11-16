@@ -9,7 +9,7 @@ interface AvatarProps {
   url?: string
   /** Alt text for the photo. Leave empty when the name is written next to the avatar */
   alt?: string
-  size?: 'small' | 'large'
+  size?: 'small' | 'medium' | 'large'
 }
 
 /**

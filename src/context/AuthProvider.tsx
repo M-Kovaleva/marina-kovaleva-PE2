@@ -35,6 +35,13 @@ function AuthProvider({ children }: AuthProviderProps) {
     setUser(null)
   }
 
+   function updateUser(changes: Partial<User>) {
+    if (!user) return
+    const updated = { ...user, ...changes }
+    saveUser(updated)
+    setUser(updated)
+  }
+
   const isManager = user?.venueManager === true
 
   return (
@@ -44,6 +51,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         isManager,
         login,
         logout,
+        updateUser,
         authView,
         openAuth: setAuthView,
         closeAuth: () => setAuthView(null),

@@ -1,0 +1,28 @@
+/* Current avatar → new avatar */
+.preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.previewText {
+  display: grid;
+  font-size: var(--font-size-small);
+}
+
+.previewText strong {
+  color: var(--color-text);
+}
+
+/* No icon inside these inputs */
+.input {
+  padding-left: var(--space-3);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
