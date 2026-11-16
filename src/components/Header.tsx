@@ -6,6 +6,7 @@ import type { AuthView } from '../context/AuthContext'
 import { useAuth } from '../hooks/useAuth'
 import buttons from '../styles/buttons.module.css'
 import styles from './Header.module.css'
+import Avatar from './Avatar'
 
 /**
  * Sticky header.
@@ -144,25 +145,6 @@ function Header() {
         )}
       </div>
     </header>
-  )
-}
-
-interface AvatarProps {
-  name: string
-  url?: string
-}
-
-/** Round photo; the first letter of the name when there is no photo or it does not load */
-function Avatar({ name, url }: AvatarProps) {
-  const [failed, setFailed] = useState(false)
-
-  if (url && !failed) {
-    return <img src={url} alt="" className={styles.avatar} onError={() => setFailed(true)} />
-  }
-  return (
-    <span className={styles.avatar} aria-hidden="true">
-      {name.charAt(0).toUpperCase()}
-    </span>
   )
 }
 
