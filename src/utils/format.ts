@@ -26,3 +26,14 @@ const dateFormat = new Intl.DateTimeFormat('en-GB', {
 export function formatDate(date: Date): string {
   return dateFormat.format(date)
 }
+
+const rangeFormat = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+})
+
+/** Two dates as "14 – 17 Nov 2026" or "28 Dec 2026 – 2 Jan 2027" */
+export function formatDateRange(from: Date, to: Date): string {
+  return rangeFormat.formatRange(from, to)
+}
