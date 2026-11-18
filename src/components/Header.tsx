@@ -53,8 +53,11 @@ function Header() {
         {user ? (
           <div className={styles.actions}>
             {isManager && (
-              // For now leads to the profile; opens the new venue form in Sprint 5
-              <Link to="/profile" className={`${buttons.secondary} ${styles.desktopOnly}`}>
+              // Opens the Create venue form on the profile page
+              <Link
+                to="/profile?new=venue"
+                className={`${buttons.secondary} ${styles.desktopOnly}`}
+              >
                 <Plus size={18} aria-hidden="true" />
                 List your venue
               </Link>
@@ -91,7 +94,7 @@ function Header() {
                 {isManager && (
                   <li className={`${styles.menuAction} ${styles.phoneOnly}`}>
                     <Link
-                      to="/profile"
+                      to="/profile?new=venue"
                       className={`${buttons.secondary} ${styles.menuButton}`}
                       onClick={closeAccountMenu}
                     >
