@@ -12,8 +12,8 @@
 }
 
 .wide {
-    max-width: 40rem;
-  }
+  max-width: 40rem;
+}
 
 /* Desktop: card in the middle of the screen */
 @media (min-width: 48rem) {

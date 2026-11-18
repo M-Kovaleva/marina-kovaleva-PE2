@@ -1,0 +1,187 @@
+/* A part of the form (Basics, Photos, …) with a line above it */
+.section {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-4) 0 0;
+  border: 0;
+  border-top: 1px solid var(--color-surface-muted);
+}
+
+.section:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+}
+
+.optional {
+  margin-left: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-caption);
+  font-weight: 400;
+}
+
+.required {
+  color: var(--color-primary);
+}
+
+/* No icon inside these inputs */
+.plain {
+  padding-left: var(--space-3);
+}
+
+.textarea {
+  height: auto;
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  resize: vertical;
+}
+
+/* Two fields side by side on wider screens */
+.row {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.photos {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Phone: photo · URL · delete, alt text below the URL */
+.photo {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  grid-template-areas:
+    'thumb url remove'
+    '. alt .';
+  gap: var(--space-2) var(--space-3);
+  align-items: start;
+}
+
+.thumb {
+  position: relative;
+  grid-area: thumb;
+  margin-top: 1.5rem;
+}
+
+.thumbImage {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+}
+
+/* The "No photo yet" text does not fit in the small square */
+.thumbImage span {
+  display: none;
+}
+
+.cover {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-text);
+  color: var(--color-white);
+  font-size: 0.625rem;
+  font-weight: 700;
+  transform: translateX(-50%);
+}
+
+.photoUrl {
+  grid-area: url;
+  min-width: 0;
+}
+
+.photoAlt {
+  grid-area: alt;
+  min-width: 0;
+}
+
+.remove {
+  display: grid;
+  grid-area: remove;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-top: 1.5rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-white);
+  color: var(--color-error);
+  cursor: pointer;
+}
+
+.remove:hover {
+  background-color: #fbeeec;
+}
+
+.add {
+  justify-self: start;
+}
+
+.amenities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-text);
+}
+
+/* Cancel and Create stay visible at the bottom while the form scrolls */
+.actions {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-surface-muted);
+  background-color: var(--color-white);
+}
+
+@media (min-width: 48rem) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* One line: photo, URL, alt text, delete */
+  .photo {
+    grid-template-columns: 3.5rem 1fr 1fr auto;
+    grid-template-areas: 'thumb url alt remove';
+  }
+
+  .amenities {
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
