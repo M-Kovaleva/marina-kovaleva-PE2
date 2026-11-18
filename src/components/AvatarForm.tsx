@@ -4,6 +4,7 @@ import Avatar from './Avatar'
 import { useAuth } from '../hooks/useAuth'
 import { ApiError } from '../services/apiFetch'
 import { updateAvatar } from '../services/profiles'
+import { isHttpsUrl } from '../utils/url'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './AvatarForm.module.css'
@@ -12,15 +13,6 @@ const MAX_ALT = 120
 
 interface AvatarFormProps {
   onDone: () => void
-}
-
-/** True for a link like "https://images.example.com/photo.jpg" */
-function isHttpsUrl(text: string): boolean {
-  try {
-    return new URL(text).protocol === 'https:'
-  } catch {
-    return false
-  }
 }
 
 /**
