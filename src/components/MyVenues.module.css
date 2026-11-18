@@ -1,0 +1,17 @@
+/* Phone: title, then a full-width Create venue button. Desktop: button on the right */
+.top {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.top p {
+  margin-bottom: 0;
+}
+
+@media (min-width: 48rem) {
+  .top {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+}
