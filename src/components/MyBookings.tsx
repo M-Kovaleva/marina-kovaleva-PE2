@@ -4,41 +4,35 @@ import BookingCard from './BookingCard'
 import ErrorMessage from './ErrorMessage'
 import Loader from './Loader'
 import { useMyBookings } from '../hooks/useMyBookings'
-import { startOfToday, toDateInputValue } from '../utils/dates'
+import { getUpcoming } from '../utils/bookings'
 import buttons from '../styles/buttons.module.css'
-import styles from './MyBookings.module.css'
+import lists from '../styles/profileList.module.css'
 
 interface MyBookingsProps {
   name: string
   token: string
 }
 
-/**
- * "My bookings": stays that have not ended yet, nearest first
- * A stay has ended on its check-out day
- */
+/** "My bookings": stays that have not ended yet, nearest first */
 function MyBookings({ name, token }: MyBookingsProps) {
   const { bookings, isLoading, error, retry } = useMyBookings(name, token)
-  const today = toDateInputValue(startOfToday())
-  const upcoming = bookings
-    .filter((booking) => toDateInputValue(new Date(booking.dateTo)) > today)
-    .sort((a, b) => a.dateFrom.localeCompare(b.dateFrom))
+  const upcoming = getUpcoming(bookings)
 
   return (
     <section aria-labelledby="bookings-heading">
-      <h2 id="bookings-heading" className={styles.heading}>
+      <h2 id="bookings-heading" className={lists.heading}>
         My bookings
-        {upcoming.length > 0 && <span className={styles.count}>{upcoming.length}</span>}
+        {upcoming.length > 0 && <span className={lists.count}>{upcoming.length}</span>}
       </h2>
-      <p className={styles.subtitle}>Upcoming stays, nearest first.</p>
+      <p className={lists.subtitle}>Upcoming stays, nearest first.</p>
 
       {isLoading && <Loader label="Loading your bookings…" />}
       {!isLoading && error && <ErrorMessage message={error} onRetry={retry} />}
 
       {!isLoading && !error && upcoming.length === 0 && (
-        <div className={styles.empty}>
+        <div className={lists.empty}>
           <CalendarDays size={32} aria-hidden="true" />
-          <p className={styles.emptyTitle}>No upcoming bookings</p>
+          <p className={lists.emptyTitle}>No upcoming bookings</p>
           <p>When you book a stay, it will show up here.</p>
           <Link to="/" className={buttons.primary}>
             <Search size={18} aria-hidden="true" />
@@ -48,7 +42,7 @@ function MyBookings({ name, token }: MyBookingsProps) {
       )}
 
       {!isLoading && upcoming.length > 0 && (
-        <ul className={styles.list}>
+        <ul className={lists.list}>
           {upcoming.map((booking) => (
             <li key={booking.id}>
               <BookingCard booking={booking} />

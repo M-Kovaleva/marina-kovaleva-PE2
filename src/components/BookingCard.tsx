@@ -1,23 +1,14 @@
 import { Link } from 'react-router-dom'
 import { CalendarDays, ChevronRight, MapPin, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
-import { countNights, startOfToday, toDateInputValue } from '../utils/dates'
+import { getStayBadge } from '../utils/bookings'
+import { countNights } from '../utils/dates'
 import { formatDateRange, formatPlace, formatPrice } from '../utils/format'
 import type { Booking } from '../types/booking'
 import styles from './BookingCard.module.css'
 
 interface BookingCardProps {
   booking: Booking
-}
-
-/** "In 10 days", "Today" (check-in today) or "Now" (the stay has started) */
-function getBadge(from: Date): string {
-  const today = toDateInputValue(startOfToday())
-  const checkIn = toDateInputValue(from)
-  if (checkIn === today) return 'Today'
-  if (checkIn < today) return 'Now'
-  const days = countNights(startOfToday(), from)
-  return `In ${days} ${days === 1 ? 'day' : 'days'}`
 }
 
 /** One upcoming stay. The whole card links to the venue page */
@@ -38,7 +29,7 @@ function BookingCard({ booking }: BookingCardProps) {
       <div className={styles.body}>
         <p className={styles.badge}>
           <CalendarDays size={14} aria-hidden="true" />
-          {getBadge(from)}
+          {getStayBadge(from)}
         </p>
         <h3 className={styles.title}>
           {venue ? (
