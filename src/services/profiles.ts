@@ -22,17 +22,17 @@ export async function getProfileBookings(
 }
 
 /**
- * Gets the venues a venue manager owns, with their bookings and customers
+ * Gets the venues a venue manager owns, newest first, with their bookings
  */
 export async function getProfileVenues(
   name: string,
   token: string,
   signal?: AbortSignal
 ): Promise<Venue[]> {
-  const res = await apiFetch<ApiListResponse<Venue>>(`${profilePath(name)}/venues?_bookings=true`, {
-    token,
-    signal,
-  })
+  const res = await apiFetch<ApiListResponse<Venue>>(
+    `${profilePath(name)}/venues?_bookings=true&sort=created&sortOrder=desc`,
+    { token, signal }
+  )
   return res.data
 }
 
