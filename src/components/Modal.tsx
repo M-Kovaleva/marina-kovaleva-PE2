@@ -7,6 +7,8 @@ interface ModalProps {
   onClose: () => void
   title: string
   description?: string
+  /** "wide" for long forms (Create / Edit venue) */
+  size?: 'normal' | 'wide'
   children: ReactNode
 }
 
@@ -15,7 +17,7 @@ interface ModalProps {
  * Closes with ✕, Esc or a click outside. While it is open, the page behind is inactive
  * and the focus stays inside (the browser does this for showModal())
  */
-function Modal({ isOpen, onClose, title, description, children }: ModalProps) {
+function Modal({ isOpen, onClose, title, description, size = 'normal', children }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const titleId = useId()
   const descriptionId = useId()
@@ -36,7 +38,7 @@ function Modal({ isOpen, onClose, title, description, children }: ModalProps) {
   return (
     <dialog
       ref={dialogRef}
-      className={styles.dialog}
+      className={size === 'wide' ? `${styles.dialog} ${styles.wide}` : styles.dialog}
       aria-labelledby={titleId}
       aria-describedby={description ? descriptionId : undefined}
       onClose={onClose}
