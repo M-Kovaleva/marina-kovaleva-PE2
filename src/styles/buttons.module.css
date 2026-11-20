@@ -44,3 +44,27 @@
 .secondary:hover:not(:disabled) {
   background-color: var(--color-surface-muted);
 }
+
+
+/* Delete: red button for the final "yes, delete" */
+.danger {
+  composes: button;
+  background-color: var(--color-error);
+  color: var(--color-white);
+}
+
+.danger:hover:not(:disabled) {
+  background-color: #7d1610;
+}
+
+/* Delete: red outline button that opens the "Delete venue?" question */
+.dangerOutline {
+  composes: button;
+  border-color: var(--color-error);
+  background-color: var(--color-white);
+  color: var(--color-error);
+}
+
+.dangerOutline:hover:not(:disabled) {
+  background-color: #fbeeec;
+}
