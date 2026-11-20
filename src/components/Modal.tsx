@@ -7,8 +7,8 @@ interface ModalProps {
   onClose: () => void
   title: string
   description?: string
-  /** "wide" for long forms (Create / Edit venue) */
-  size?: 'normal' | 'wide'
+  /** "wide" for long forms (Create / Edit venue), "small" for a short question (Delete venue?) */
+  size?: 'normal' | 'wide' | 'small'
   children: ReactNode
 }
 
@@ -38,7 +38,7 @@ function Modal({ isOpen, onClose, title, description, size = 'normal', children 
   return (
     <dialog
       ref={dialogRef}
-      className={size === 'wide' ? `${styles.dialog} ${styles.wide}` : styles.dialog}
+      className={size === 'normal' ? styles.dialog : `${styles.dialog} ${styles[size]}`}
       aria-labelledby={titleId}
       aria-describedby={description ? descriptionId : undefined}
       onClose={onClose}

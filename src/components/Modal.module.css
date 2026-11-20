@@ -32,6 +32,16 @@
   }
 }
 
+ /* A short question stays a small card in the middle, also on phones */
+  .small {
+    width: calc(100% - 2 * var(--page-padding));
+    max-width: 26rem;
+    height: fit-content;
+    margin: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+  
 .dialog::backdrop {
   background-color: rgb(31 42 46 / 60%);
 }
