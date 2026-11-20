@@ -1,6 +1,7 @@
 import { useEffect, useState, type MouseEvent } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { ChevronLeft, MapPin, Pencil, Star, Users } from 'lucide-react'
+import { ChevronLeft, MapPin, Pencil, Star, Trash2, Users } from 'lucide-react'
+import DeleteVenue from '../components/DeleteVenue'
 import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import Modal from '../components/Modal'
@@ -20,6 +21,7 @@ function VenuePage() {
   const location = useLocation()
   const navigate = useNavigate()
   const [isEditing, setIsEditing] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   // Came here from the venue list (the card link sets this state)
   const cameFromList = (location.state as { fromList?: boolean } | null)?.fromList === true
@@ -131,10 +133,24 @@ function VenuePage() {
         <BookingPanel
           venue={venue}
           ownerActions={
-            <button type="button" className={buttons.secondary} onClick={() => setIsEditing(true)}>
-              <Pencil size={18} aria-hidden="true" />
-              Edit venue
-            </button>
+            <>
+              <button
+                type="button"
+                className={buttons.secondary}
+                onClick={() => setIsEditing(true)}
+              >
+                <Pencil size={18} aria-hidden="true" />
+                Edit venue
+              </button>
+              <button
+                type="button"
+                className={buttons.dangerOutline}
+                onClick={() => setIsDeleting(true)}
+              >
+                <Trash2 size={18} aria-hidden="true" />
+                Delete
+              </button>
+            </>
           }
         />
       </div>
@@ -153,6 +169,20 @@ function VenuePage() {
             retry()
           }}
           onCancel={() => setIsEditing(false)}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={isDeleting}
+        onClose={() => setIsDeleting(false)}
+        title="Delete venue?"
+        size="small"
+      >
+        {/* The venue page is gone after this, so go to the profile (replace: Back does not return here) */}
+        <DeleteVenue
+          venue={venue}
+          onDeleted={() => navigate('/profile', { replace: true })}
+          onCancel={() => setIsDeleting(false)}
         />
       </Modal>
     </div>
