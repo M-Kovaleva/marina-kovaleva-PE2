@@ -45,16 +45,16 @@ function MyVenueCard({ venue, onEdit, onDelete }: MyVenueCardProps) {
               Up to {venue.maxGuests} {venue.maxGuests === 1 ? 'guest' : 'guests'}
             </span>
           </p>
-        </div>
-        <div className={styles.actions}>
-          <button type="button" className={buttons.secondary} onClick={onEdit}>
-            <Pencil size={18} aria-hidden="true" />
-            Edit
-          </button>
-          <button type="button" className={buttons.dangerOutline} onClick={onDelete}>
-            <Trash2 size={18} aria-hidden="true" />
-            Delete
-          </button>
+          <div className={styles.actions}>
+            <button type="button" className={buttons.secondary} onClick={onEdit}>
+              <Pencil size={18} aria-hidden="true" />
+              Edit
+            </button>
+            <button type="button" className={buttons.dangerOutline} onClick={onDelete}>
+              <Trash2 size={18} aria-hidden="true" />
+              Delete
+            </button>
+          </div>
         </div>
       </div>
 
