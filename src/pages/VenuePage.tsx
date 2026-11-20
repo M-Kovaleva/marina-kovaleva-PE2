@@ -1,12 +1,15 @@
-import { useEffect, type MouseEvent } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { ChevronLeft, MapPin, Star, Users } from 'lucide-react'
+import { ChevronLeft, MapPin, Pencil, Star, Users } from 'lucide-react'
 import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
+import Modal from '../components/Modal'
 import VenueAmenities from '../components/VenueAmenities'
+import VenueForm from '../components/VenueForm'
 import VenueGallery from '../components/VenueGallery'
 import { useVenue } from '../hooks/useVenue'
 import { formatPlace } from '../utils/format'
+import buttons from '../styles/buttons.module.css'
 import styles from './VenuePage.module.css'
 import ErrorScreen from '../components/ErrorScreen'
 import BookingPanel from '../components/BookingPanel'
@@ -16,6 +19,7 @@ function VenuePage() {
   const { venue, isLoading, error, notFound, retry } = useVenue(id)
   const location = useLocation()
   const navigate = useNavigate()
+  const [isEditing, setIsEditing] = useState(false)
 
   // Came here from the venue list (the card link sets this state)
   const cameFromList = (location.state as { fromList?: boolean } | null)?.fromList === true
@@ -32,7 +36,8 @@ function VenuePage() {
     navigate(-1)
   }
 
-  if (isLoading) {
+  // After Edit the venue reloads; the old data stays on the screen meanwhile (no loader flash)
+  if (isLoading && venue?.id !== id) {
     return (
       <div className={styles.page}>
         <Loader label="Loading venue…" />
@@ -123,9 +128,33 @@ function VenuePage() {
           </section>
         </div>
 
-        {/* Becomes the booking card in Sprint 4 */}
-        <BookingPanel venue={venue} />
+        <BookingPanel
+          venue={venue}
+          ownerActions={
+            <button type="button" className={buttons.secondary} onClick={() => setIsEditing(true)}>
+              <Pencil size={18} aria-hidden="true" />
+              Edit venue
+            </button>
+          }
+        />
       </div>
+
+      <Modal
+        isOpen={isEditing}
+        onClose={() => setIsEditing(false)}
+        title="Edit venue"
+        description="Fields marked * are required."
+        size="wide"
+      >
+        <VenueForm
+          venue={venue}
+          onSaved={() => {
+            setIsEditing(false)
+            retry()
+          }}
+          onCancel={() => setIsEditing(false)}
+        />
+      </Modal>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import type { DateRange } from 'react-day-picker'
 import { CircleCheck, Info, Minus, Plus, TriangleAlert } from 'lucide-react'
@@ -16,6 +16,8 @@ import styles from './BookingPanel.module.css'
 
 interface BookingPanelProps {
   venue: Venue
+  /** Buttons for the owner of the venue (Edit venue, Delete) */
+  ownerActions?: ReactNode
 }
 
 /** Dates from the search (?from=&to=), if they are in the future and free at this venue */
@@ -36,7 +38,7 @@ function getStartGuests(guests: string | null, maxGuests: number) {
  * "Book your stay": calendar, guests, total price and Book now.
  * Visitors see "Log in to book"; the chosen dates stay while the login modal is open
  */
-function BookingPanel({ venue }: BookingPanelProps) {
+function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
   const { user, isManager, openAuth } = useAuth()
   const [searchParams] = useSearchParams()
   // Bookings made here are added at once, so the calendar shows them without reloading
@@ -108,6 +110,7 @@ function BookingPanel({ venue }: BookingPanelProps) {
           <Info size={18} aria-hidden="true" />
           {isOwner ? 'This is your venue.' : 'Booking is available for customer accounts only.'}
         </p>
+        {isOwner && ownerActions && <div className={styles.ownerActions}>{ownerActions}</div>}
       </aside>
     )
   }
