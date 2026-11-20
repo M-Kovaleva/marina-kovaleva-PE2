@@ -26,7 +26,3 @@
   gap: var(--space-3);
   margin-top: var(--space-4);
 }
-
-.body {
-  margin-top: var(--space-6);
-}

@@ -47,10 +47,6 @@
   font-weight: 800;
 }
 
-.empty a {
-  margin-top: var(--space-2);
-}
-
 .empty a,
 .empty button {
   margin-top: var(--space-2);
