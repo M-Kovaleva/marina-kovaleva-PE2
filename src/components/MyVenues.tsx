@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { House, Plus } from 'lucide-react'
+import DeleteVenue from './DeleteVenue'
 import ErrorMessage from './ErrorMessage'
 import Loader from './Loader'
 import Modal from './Modal'
@@ -27,6 +28,7 @@ function MyVenues({ name, token }: MyVenuesProps) {
   const [searchParams, setSearchParams] = useSearchParams()
   const isCreating = searchParams.get('new') === 'venue'
   const [editing, setEditing] = useState<Venue | null>(null)
+  const [deleting, setDeleting] = useState<Venue | null>(null)
 
   // replace: opening and closing the form does not add steps to the Back button
   function openCreate() {
@@ -40,6 +42,11 @@ function MyVenues({ name, token }: MyVenuesProps) {
 
   function handleSaved() {
     closeForm()
+    reload()
+  }
+
+  function handleDeleted() {
+    setDeleting(null)
     reload()
   }
 
@@ -80,7 +87,11 @@ function MyVenues({ name, token }: MyVenuesProps) {
         <ul className={lists.list}>
           {venues.map((venue) => (
             <li key={venue.id}>
-              <MyVenueCard venue={venue} onEdit={() => setEditing(venue)} />
+              <MyVenueCard
+                venue={venue}
+                onEdit={() => setEditing(venue)}
+                onDelete={() => setDeleting(venue)}
+              />
             </li>
           ))}
         </ul>
@@ -94,6 +105,21 @@ function MyVenues({ name, token }: MyVenuesProps) {
         size="wide"
       >
         <VenueForm venue={editing ?? undefined} onSaved={handleSaved} onCancel={closeForm} />
+      </Modal>
+
+      <Modal
+        isOpen={deleting !== null}
+        onClose={() => setDeleting(null)}
+        title="Delete venue?"
+        size="small"
+      >
+        {deleting && (
+          <DeleteVenue
+            venue={deleting}
+            onDeleted={handleDeleted}
+            onCancel={() => setDeleting(null)}
+          />
+        )}
       </Modal>
     </section>
   )

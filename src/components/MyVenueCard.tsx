@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { CalendarDays, MapPin, Moon, Pencil, Users } from 'lucide-react'
+import { CalendarDays, MapPin, Moon, Pencil, Trash2, Users } from 'lucide-react'
 import Avatar from './Avatar'
 import VenueImage from './VenueImage'
 import { getStayBadge, getUpcoming } from '../utils/bookings'
@@ -12,10 +12,11 @@ import styles from './MyVenueCard.module.css'
 interface MyVenueCardProps {
   venue: Venue
   onEdit: () => void
+  onDelete: () => void
 }
 
 /** One venue of the manager with its upcoming bookings: dates, guests and who booked */
-function MyVenueCard({ venue, onEdit }: MyVenueCardProps) {
+function MyVenueCard({ venue, onEdit, onDelete }: MyVenueCardProps) {
   const upcoming = getUpcoming(venue.bookings ?? [])
   const place = formatPlace(venue.location)
 
@@ -49,6 +50,10 @@ function MyVenueCard({ venue, onEdit }: MyVenueCardProps) {
           <button type="button" className={buttons.secondary} onClick={onEdit}>
             <Pencil size={18} aria-hidden="true" />
             Edit
+          </button>
+          <button type="button" className={buttons.dangerOutline} onClick={onDelete}>
+            <Trash2 size={18} aria-hidden="true" />
+            Delete
           </button>
         </div>
       </div>
