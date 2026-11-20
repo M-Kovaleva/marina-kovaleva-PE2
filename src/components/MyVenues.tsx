@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { House, Plus } from 'lucide-react'
 import ErrorMessage from './ErrorMessage'
@@ -6,6 +7,7 @@ import Modal from './Modal'
 import MyVenueCard from './MyVenueCard'
 import VenueForm from './VenueForm'
 import { useMyVenues } from '../hooks/useMyVenues'
+import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
 import lists from '../styles/profileList.module.css'
 import styles from './MyVenues.module.css'
@@ -17,25 +19,27 @@ interface MyVenuesProps {
 
 /**
  * "My venues": the venues of a venue manager, each with its upcoming bookings
- * The Create venue form opens here. "?new=venue" in the address opens it too,
- * so "List your venue" in the header can open it from any page
+ * The Create / Edit venue form opens here. "?new=venue" in the address opens
+ * the Create form too, so "List your venue" in the header can open it from any page
  */
 function MyVenues({ name, token }: MyVenuesProps) {
   const { venues, isLoading, error, reload } = useMyVenues(name, token)
   const [searchParams, setSearchParams] = useSearchParams()
   const isCreating = searchParams.get('new') === 'venue'
+  const [editing, setEditing] = useState<Venue | null>(null)
 
   // replace: opening and closing the form does not add steps to the Back button
   function openCreate() {
     setSearchParams({ new: 'venue' }, { replace: true })
   }
 
-  function closeCreate() {
-    setSearchParams({}, { replace: true })
+  function closeForm() {
+    setEditing(null)
+    if (isCreating) setSearchParams({}, { replace: true })
   }
 
-  function handleCreated() {
-    closeCreate()
+  function handleSaved() {
+    closeForm()
     reload()
   }
 
@@ -76,20 +80,20 @@ function MyVenues({ name, token }: MyVenuesProps) {
         <ul className={lists.list}>
           {venues.map((venue) => (
             <li key={venue.id}>
-              <MyVenueCard venue={venue} />
+              <MyVenueCard venue={venue} onEdit={() => setEditing(venue)} />
             </li>
           ))}
         </ul>
       )}
 
       <Modal
-        isOpen={isCreating}
-        onClose={closeCreate}
-        title="Create venue"
+        isOpen={isCreating || editing !== null}
+        onClose={closeForm}
+        title={editing ? 'Edit venue' : 'Create venue'}
         description="Fields marked * are required."
         size="wide"
       >
-        <VenueForm onSaved={handleCreated} onCancel={closeCreate} />
+        <VenueForm venue={editing ?? undefined} onSaved={handleSaved} onCancel={closeForm} />
       </Modal>
     </section>
   )

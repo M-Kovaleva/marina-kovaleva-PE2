@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom'
-import { CalendarDays, MapPin, Moon, Users } from 'lucide-react'
+import { CalendarDays, MapPin, Moon, Pencil, Users } from 'lucide-react'
 import Avatar from './Avatar'
 import VenueImage from './VenueImage'
 import { getStayBadge, getUpcoming } from '../utils/bookings'
 import { countNights } from '../utils/dates'
 import { formatDateRange, formatPlace, formatPrice } from '../utils/format'
 import type { Venue } from '../types/venue'
+import buttons from '../styles/buttons.module.css'
 import styles from './MyVenueCard.module.css'
 
 interface MyVenueCardProps {
   venue: Venue
+  onEdit: () => void
 }
 
 /** One venue of the manager with its upcoming bookings: dates, guests and who booked */
-function MyVenueCard({ venue }: MyVenueCardProps) {
+function MyVenueCard({ venue, onEdit }: MyVenueCardProps) {
   const upcoming = getUpcoming(venue.bookings ?? [])
   const place = formatPlace(venue.location)
 
@@ -42,6 +44,12 @@ function MyVenueCard({ venue }: MyVenueCardProps) {
               Up to {venue.maxGuests} {venue.maxGuests === 1 ? 'guest' : 'guests'}
             </span>
           </p>
+        </div>
+        <div className={styles.actions}>
+          <button type="button" className={buttons.secondary} onClick={onEdit}>
+            <Pencil size={18} aria-hidden="true" />
+            Edit
+          </button>
         </div>
       </div>
 
