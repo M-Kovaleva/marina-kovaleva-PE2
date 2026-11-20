@@ -45,7 +45,6 @@
   background-color: var(--color-surface-muted);
 }
 
-
 /* Delete: red button for the final "yes, delete" */
 .danger {
   composes: button;

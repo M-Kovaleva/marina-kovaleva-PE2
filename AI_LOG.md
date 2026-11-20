@@ -79,3 +79,10 @@ Explaned
 **Task:** Choose how `VenueImage` should load photos on the venue page
 **What AI did:** Explained why one loading mode for all photos is not enough. Until now every photo used `loading="lazy"`: the browser loads it only when it is about to scroll into view. This is good for the venue cards on the home page (many images, most of them below the fold). But the big photo at the top of the venue page is visible right away. With `lazy` the browser waits to load it, so it appears with a delay. This hurts LCP (Largest Contentful Paint), and Lighthouse lowers the Performance score. Suggested an optional `loading` prop (`'lazy' | 'eager'`) on `VenueImage` with `'lazy'` as the default, so the home page cards keep working as before and only the main gallery photo uses `loading="eager"`.
 **What I did myself:** Added the `loading` prop to the `VenueImage` interface (`loading?: 'lazy' | 'eager'`), set the default in the function signature (`loading = 'lazy'`), replaced `loading="lazy"` with `loading={loading}` in `<img>`, used `loading="eager"` for the main photo in `VenueGallery`
+
+## 2026-11-20
+
+**Tool:** ChatGPT
+**Task:** Write alt text for the photos of my test venues
+**What AI did:** Suggested a short alt text for each venue photo I shared. Kept each text under 120 characters. Followed simple alt text rules.
+**What I did myself:** Chose the photos and checked that the image links are public (https). Read every suggested text. Entered the alt texts in the venue form and saved the venues. Checked the result on the venue page and in the gallery.
