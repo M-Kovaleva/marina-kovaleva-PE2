@@ -2,7 +2,7 @@ import { useState, type SubmitEvent } from 'react'
 import { DollarSign, Plus, Trash2, TriangleAlert, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
 import { useAuth } from '../hooks/useAuth'
-import { createVenue, type VenueData } from '../services/venues'
+import { createVenue, updateVenue, type VenueData } from '../services/venues'
 import { isHttpsUrl } from '../utils/url'
 import type { Venue, VenueMeta } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
@@ -51,15 +51,31 @@ function newPhoto(): PhotoRow {
   return { id: crypto.randomUUID(), url: '', alt: '' }
 }
 
-const EMPTY_VALUES: VenueValues = {
-  name: '',
-  description: '',
-  price: '',
-  maxGuests: '',
-  photos: [],
-  meta: { wifi: false, parking: false, breakfast: false, pets: false },
-  city: '',
-  country: '',
+/** Start values: empty for a new venue, the current data when editing */
+function toFormValues(venue?: Venue): VenueValues {
+  if (!venue) {
+    return {
+      name: '',
+      description: '',
+      price: '',
+      maxGuests: '',
+      photos: [newPhoto()],
+      meta: { wifi: false, parking: false, breakfast: false, pets: false },
+      city: '',
+      country: '',
+    }
+  }
+  const photos = venue.media.map((media) => ({ ...media, id: crypto.randomUUID() }))
+  return {
+    name: venue.name,
+    description: venue.description,
+    price: String(venue.price),
+    maxGuests: String(venue.maxGuests),
+    photos: photos.length > 0 ? photos : [newPhoto()],
+    meta: { ...venue.meta },
+    city: venue.location.city ?? '',
+    country: venue.location.country ?? '',
+  }
 }
 
 function validate(values: VenueValues): VenueErrors {
@@ -103,20 +119,19 @@ function toVenueData(values: VenueValues): VenueData {
 }
 
 interface VenueFormProps {
+  /** The venue to edit. Without it the form creates a new venue */
+  venue?: Venue
   onSaved: (venue: Venue) => void
   onCancel: () => void
 }
 
 /**
- * Create venue form: basics, photos, amenities and location
+ * Create / Edit venue form: basics, photos, amenities and location
  * Checks the fields before sending; errors from the API are shown at the top
  */
-function VenueForm({ onSaved, onCancel }: VenueFormProps) {
+function VenueForm({ venue, onSaved, onCancel }: VenueFormProps) {
   const { user } = useAuth()
-  const [values, setValues] = useState<VenueValues>(() => ({
-    ...EMPTY_VALUES,
-    photos: [newPhoto()],
-  }))
+  const [values, setValues] = useState(() => toFormValues(venue))
   const [errors, setErrors] = useState<VenueErrors>({})
   const [alert, setAlert] = useState('')
   const [isSending, setIsSending] = useState(false)
@@ -148,13 +163,19 @@ function VenueForm({ onSaved, onCancel }: VenueFormProps) {
     setAlert('')
     setIsSending(true)
     try {
-      const venue = await createVenue(toVenueData(values), user.accessToken)
-      onSaved(venue)
+      const data = toVenueData(values)
+      const saved = venue
+        ? await updateVenue(venue.id, data, user.accessToken)
+        : await createVenue(data, user.accessToken)
+      onSaved(saved)
     } catch (error) {
       setAlert(error instanceof Error ? error.message : 'Something went wrong.')
       setIsSending(false)
     }
   }
+
+  let submitLabel = venue ? 'Save changes' : 'Create venue'
+  if (isSending) submitLabel = venue ? 'Saving…' : 'Creating…'
 
   return (
     <form className={forms.form} noValidate onSubmit={handleSubmit}>
@@ -406,7 +427,7 @@ function VenueForm({ onSaved, onCancel }: VenueFormProps) {
           Cancel
         </button>
         <button type="submit" className={buttons.primary} disabled={isSending}>
-          {isSending ? 'Creating…' : 'Create venue'}
+          {submitLabel}
         </button>
       </div>
     </form>
