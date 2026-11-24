@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { ChevronLeft, MapPin, Pencil, Star, Trash2, Users } from 'lucide-react'
+import { ChevronLeft, MapPin, Pencil, Trash2, Users } from 'lucide-react'
 import DeleteVenue from '../components/DeleteVenue'
 import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
@@ -14,6 +14,7 @@ import buttons from '../styles/buttons.module.css'
 import styles from './VenuePage.module.css'
 import ErrorScreen from '../components/ErrorScreen'
 import BookingPanel from '../components/BookingPanel'
+import RatingBadge from '../components/RatingBadge'
 
 function VenuePage() {
   const { id = '' } = useParams()
@@ -95,18 +96,7 @@ function VenuePage() {
                 {place || 'Location not added'}
               </li>
               <li>
-                {rating > 0 ? (
-                  <span
-                    className={styles.rating}
-                    role="img"
-                    aria-label={`Rated ${rating.toFixed(1)} out of 5`}
-                  >
-                    <Star size={18} aria-hidden="true" />
-                    {rating.toFixed(1)}
-                  </span>
-                ) : (
-                  <span className={styles.new}>New</span>
-                )}
+                <RatingBadge rating={rating} />
               </li>
               <li>
                 <Users size={18} aria-hidden="true" />

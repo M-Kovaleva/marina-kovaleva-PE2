@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Star, Users } from 'lucide-react'
+import { MapPin, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
 import type { Venue } from '../types/venue'
 import { AMENITIES } from '../constants'
 import styles from './VenueCard.module.css'
 import { formatPlace, formatPrice, plural } from '../utils/format'
+import RatingBadge from './RatingBadge'
 
 interface VenueCardProps {
   venue: Venue
@@ -41,14 +42,7 @@ function VenueCard({ venue, search = '' }: VenueCardProps) {
               {name}
             </Link>
           </h3>
-          {rating > 0 ? (
-            <span className={styles.rating} aria-label={`Rated ${rating.toFixed(1)} out of 5`}>
-              <Star size={16} aria-hidden="true" />
-              {rating.toFixed(1)}
-            </span>
-          ) : (
-            <span className={styles.new}>New</span>
-          )}
+          <RatingBadge rating={rating} size="small" />
         </div>
 
         <p className={styles.location}>
