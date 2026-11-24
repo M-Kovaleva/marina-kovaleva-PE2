@@ -4,7 +4,7 @@ import Avatar from './Avatar'
 import VenueImage from './VenueImage'
 import { getStayBadge, getUpcoming } from '../utils/bookings'
 import { countNights } from '../utils/dates'
-import { formatDateRange, formatPlace, formatPrice } from '../utils/format'
+import { formatDateRange, formatPlace, formatPrice, plural } from '../utils/format'
 import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
 import styles from './MyVenueCard.module.css'
@@ -42,7 +42,7 @@ function MyVenueCard({ venue, onEdit, onDelete }: MyVenueCardProps) {
             </span>
             <span className={styles.icon}>
               <Users size={16} aria-hidden="true" />
-              Up to {venue.maxGuests} {venue.maxGuests === 1 ? 'guest' : 'guests'}
+              Up to {plural(venue.maxGuests, 'guest')}
             </span>
           </p>
           <div className={styles.actions}>
@@ -75,12 +75,12 @@ function MyVenueCard({ venue, onEdit, onDelete }: MyVenueCardProps) {
               <li key={booking.id} className={styles.booking}>
                 <p className={styles.dates}>
                   <CalendarDays size={18} aria-hidden="true" />
-                  {formatDateRange(from, to)} · {nights} {nights === 1 ? 'night' : 'nights'}
+                  {formatDateRange(from, to)} , {plural(nights, 'night')}
                 </p>
                 <div className={styles.people}>
                   <p className={styles.icon}>
                     <Users size={16} aria-hidden="true" />
-                    {booking.guests} {booking.guests === 1 ? 'guest' : 'guests'}
+                    {plural(booking.guests, 'guest')}
                   </p>
                   {booking.customer && (
                     <p className={styles.customer}>

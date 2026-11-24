@@ -9,7 +9,7 @@ import VenueAmenities from '../components/VenueAmenities'
 import VenueForm from '../components/VenueForm'
 import VenueGallery from '../components/VenueGallery'
 import { useVenue } from '../hooks/useVenue'
-import { formatPlace } from '../utils/format'
+import { formatPlace, plural } from '../utils/format'
 import buttons from '../styles/buttons.module.css'
 import styles from './VenuePage.module.css'
 import ErrorScreen from '../components/ErrorScreen'
@@ -110,7 +110,7 @@ function VenuePage() {
               </li>
               <li>
                 <Users size={18} aria-hidden="true" />
-                Up to {maxGuests} {maxGuests === 1 ? 'guest' : 'guests'}
+                Up to {plural(maxGuests, 'guest')}
               </li>
             </ul>
           </section>

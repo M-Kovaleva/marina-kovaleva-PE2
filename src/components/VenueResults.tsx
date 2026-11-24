@@ -98,7 +98,7 @@ function VenueResults({ query, filter }: VenueResultsProps) {
           <div className={styles.more}>
             <p className={styles.status} aria-live="polite">
               {isFiltered
-                ? `Found ${shown.length} available · checked ${venues.length} of ${totalText} venues`
+                ? `Found ${shown.length} available - checked ${venues.length} of ${totalText} venues`
                 : `Showing ${venues.length} of ${totalText} venues`}
             </p>
 

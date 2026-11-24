@@ -8,6 +8,7 @@ import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './DeleteVenue.module.css'
 import { getErrorMessage } from '../utils/errors'
+import { plural } from '../utils/format'
 
 interface DeleteVenueProps {
   venue: Venue
@@ -24,7 +25,7 @@ function DeleteVenue({ venue, onDeleted, onCancel }: DeleteVenueProps) {
 
   let message = 'The venue will be removed.'
   if (upcoming > 0) {
-    message = `The venue and its ${upcoming} upcoming ${upcoming === 1 ? 'booking' : 'bookings'} will be removed.`
+    message = `The venue and its ${plural(upcoming, 'upcoming booking')} will be removed.`
   }
 
   async function handleDelete() {

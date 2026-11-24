@@ -1,5 +1,6 @@
 import { countNights, startOfToday, toDateInputValue } from './dates'
 import type { Booking } from '../types/booking'
+import { plural } from './format'
 
 /**
  * Stays that have not ended yet, nearest first
@@ -19,5 +20,5 @@ export function getStayBadge(from: Date): string {
   if (checkIn === today) return 'Today'
   if (checkIn < today) return 'Now'
   const days = countNights(startOfToday(), from)
-  return `In ${days} ${days === 1 ? 'day' : 'days'}`
+  return `In ${plural(days, 'day')}`
 }

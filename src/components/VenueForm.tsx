@@ -9,6 +9,7 @@ import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './VenueForm.module.css'
 import { getErrorMessage } from '../utils/errors'
+import { plural } from '../utils/format'
 
 const MAX_GUESTS = 100
 const MAX_ALT = 120
@@ -157,7 +158,7 @@ function VenueForm({ venue, onSaved, onCancel }: VenueFormProps) {
     const count = countErrors(found)
     setErrors(found)
     if (count > 0) {
-      setAlert(count === 1 ? 'Please fix 1 field below.' : `Please fix ${count} fields below.`)
+      setAlert(`Please fix ${plural(count, 'field')} below.`)
       return
     }
 

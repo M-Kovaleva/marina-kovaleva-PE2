@@ -7,7 +7,7 @@ import { useAuth } from '../hooks/useAuth'
 import { createBooking } from '../services/bookings'
 import { getBookedNights, isRangeFree } from '../utils/availability'
 import { countNights, fromDateInputValue, startOfToday, toDateInputValue } from '../utils/dates'
-import { formatDate, formatPrice } from '../utils/format'
+import { formatDate, formatPrice, plural } from '../utils/format'
 import type { Booking } from '../types/booking'
 import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
@@ -62,7 +62,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
   let status = 'Select your check-in date'
   if (range?.from && !range.to) status = 'Select your check-out date'
   if (range?.from && range.to) {
-    status = `${formatDate(range.from)} – ${formatDate(range.to)} · ${nights} ${nights === 1 ? 'night' : 'nights'}`
+    status = `${formatDate(range.from)} – ${formatDate(range.to)} , ${plural(nights, 'night')}`
   }
 
   function handleRangeChange(next: DateRange | undefined) {
@@ -133,7 +133,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
           </p>
           <p>
             {formatDate(new Date(created.dateFrom))} – {formatDate(new Date(created.dateTo))} ·{' '}
-            {created.guests} {created.guests === 1 ? 'guest' : 'guests'}
+            {plural(created.guests, 'guest')}
           </p>
           <Link to="/profile" className={styles.successLink}>
             Go to my bookings
@@ -184,9 +184,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
           >
             <Minus size={18} aria-hidden="true" />
           </button>
-          <output aria-live="polite">
-            {guests} {guests === 1 ? 'guest' : 'guests'}
-          </output>
+          <output aria-live="polite">{plural(guests, 'guest')}</output>
           <button
             type="button"
             className={styles.step}
@@ -203,7 +201,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
         <dl className={styles.total}>
           <div>
             <dt>
-              {nights} {nights === 1 ? 'night' : 'nights'} × {formatPrice(venue.price)}
+              {plural(nights, 'night')} × {formatPrice(venue.price)}
             </dt>
             <dd>{formatPrice(total)}</dd>
           </div>

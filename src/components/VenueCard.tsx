@@ -3,7 +3,7 @@ import { MapPin, Star, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
 import type { Venue, VenueMeta } from '../types/venue'
 import styles from './VenueCard.module.css'
-import { formatPlace, formatPrice } from '../utils/format'
+import { formatPlace, formatPrice, plural } from '../utils/format'
 
 const AMENITIES: { key: keyof VenueMeta; label: string }[] = [
   { key: 'wifi', label: 'Wi-Fi' },
@@ -32,7 +32,7 @@ function VenueCard({ venue, search = '' }: VenueCardProps) {
         <VenueImage media={media[0]} fallbackAlt={name} />
         <span className={styles.guests}>
           <Users size={14} aria-hidden="true" />
-          Up to {maxGuests} {maxGuests === 1 ? 'guest' : 'guests'}
+          Up to {plural(maxGuests, 'guest')}
         </span>
       </div>
 

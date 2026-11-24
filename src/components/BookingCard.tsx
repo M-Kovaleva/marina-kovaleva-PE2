@@ -3,7 +3,7 @@ import { CalendarDays, ChevronRight, MapPin, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
 import { getStayBadge } from '../utils/bookings'
 import { countNights } from '../utils/dates'
-import { formatDateRange, formatPlace, formatPrice } from '../utils/format'
+import { formatDateRange, formatPlace, formatPrice, plural } from '../utils/format'
 import type { Booking } from '../types/booking'
 import styles from './BookingCard.module.css'
 
@@ -49,11 +49,11 @@ function BookingCard({ booking }: BookingCardProps) {
         <p className={styles.meta}>
           <CalendarDays size={16} aria-hidden="true" />
           <strong>
-            {formatDateRange(from, to)} · {nights} {nights === 1 ? 'night' : 'nights'}
+            {formatDateRange(from, to)} , {plural(nights, 'night')}
           </strong>
           <span className={styles.guests}>
             <Users size={16} aria-hidden="true" />
-            {guests} {guests === 1 ? 'guest' : 'guests'}
+            {plural(guests, 'guest')}
           </span>
         </p>
       </div>
