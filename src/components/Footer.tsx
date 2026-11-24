@@ -1,7 +1,17 @@
+import { Link } from 'react-router-dom'
+import Logo from './Logo'
+import styles from './Footer.module.css'
+
+/** Bottom of every page: logo (link to the home page) and copyright */
 function Footer() {
   return (
-    <footer>
-      <p>© 2026 Holidaze</p>
+    <footer className={styles.footer}>
+      <div className={styles.bar}>
+        <Link to="/" className={styles.home}>
+          <Logo />
+        </Link>
+        <p className={styles.copyright}>© {new Date().getFullYear()} Holidaze</p>
+      </div>
     </footer>
   )
 }

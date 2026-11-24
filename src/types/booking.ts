@@ -4,7 +4,8 @@ import type { Venue } from './venue'
 /**
  * A booking from `/holidaze/bookings`
  * Dates are ISO strings, e.g. "2026-11-14T00:00:00.000Z"
- * `venue` comes only with `?_venue=true`, `customer` only with `?_customer=true`
+ * `venue` comes only with `?_venue=true`. `customer` comes with `?_customer=true`,
+ * and also with the bookings of a venue (`?_bookings=true`)
  */
 export interface Booking {
   id: string

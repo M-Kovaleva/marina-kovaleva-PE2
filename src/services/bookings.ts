@@ -2,7 +2,7 @@ import { apiFetch } from './apiFetch'
 import type { ApiResponse } from '../types/api'
 import type { Booking } from '../types/booking'
 
-/** What the booking form sends. Dates are ISO strings */
+/** What the booking form sends. Dates are "YYYY-MM-DD" (local date, no time) */
 export interface BookingData {
   dateFrom: string
   dateTo: string
