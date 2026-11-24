@@ -1,10 +1,11 @@
 import { useState, type SubmitEvent } from 'react'
-import { Eye, EyeOff, Lock, Mail, TriangleAlert } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { ApiError } from '../services/apiFetch'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import { getErrorMessage } from '../utils/errors'
+import FormAlert from './FormAlert'
 
 interface LoginErrors {
   email?: string
@@ -54,12 +55,7 @@ function LoginForm() {
 
   return (
     <form className={forms.form} noValidate onSubmit={handleSubmit}>
-      {apiError && (
-        <p className={forms.alert} role="alert">
-          <TriangleAlert size={18} aria-hidden="true" />
-          {apiError}
-        </p>
-      )}
+      <FormAlert message={apiError} />
 
       <div className={forms.field}>
         <label htmlFor="login-email" className={forms.label}>

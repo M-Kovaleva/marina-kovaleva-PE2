@@ -1,12 +1,13 @@
 import { useState, type SubmitEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AtSign, Eye, EyeOff, House, Lock, Mail, Search, TriangleAlert } from 'lucide-react'
+import { AtSign, Eye, EyeOff, House, Lock, Mail, Search } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { registerUser } from '../services/auth'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './RegisterForm.module.css'
 import { getErrorMessage } from '../utils/errors'
+import FormAlert from './FormAlert'
 
 const NAME_PATTERN = /^[A-Za-z0-9_]+$/
 const EMAIL_PATTERN = /^[^\s@]+@stud\.noroff\.no$/i
@@ -72,12 +73,7 @@ function RegisterForm({ asManager }: RegisterFormProps) {
 
   return (
     <form className={forms.form} noValidate onSubmit={handleSubmit}>
-      {apiError && (
-        <p className={forms.alert} role="alert">
-          <TriangleAlert size={18} aria-hidden="true" />
-          {apiError}
-        </p>
-      )}
+      <FormAlert message={apiError} />
 
       <fieldset className={styles.types}>
         <legend className={forms.label}>Account type</legend>

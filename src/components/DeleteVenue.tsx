@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { Trash2, TriangleAlert } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { deleteVenue } from '../services/venues'
 import { getUpcoming } from '../utils/bookings'
 import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
-import forms from '../styles/forms.module.css'
 import styles from './DeleteVenue.module.css'
 import { getErrorMessage } from '../utils/errors'
 import { plural } from '../utils/format'
+import FormAlert from './FormAlert'
 
 interface DeleteVenueProps {
   venue: Venue
@@ -46,12 +46,7 @@ function DeleteVenue({ venue, onDeleted, onCancel }: DeleteVenueProps) {
       <p className={styles.name}>{venue.name}</p>
       <p className={styles.message}>{message} This can’t be undone.</p>
 
-      {apiError && (
-        <p className={forms.alert} role="alert">
-          <TriangleAlert size={18} aria-hidden="true" />
-          {apiError}
-        </p>
-      )}
+      <FormAlert message={apiError} />
 
       <div className={styles.actions}>
         <button type="button" className={buttons.secondary} onClick={onCancel}>

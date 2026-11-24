@@ -9,6 +9,7 @@ import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './AvatarForm.module.css'
 import { getErrorMessage } from '../utils/errors'
+import FormAlert from './FormAlert'
 
 const MAX_ALT = 120
 
@@ -73,11 +74,7 @@ function AvatarForm({ onDone }: AvatarFormProps) {
         </p>
       </div>
 
-      {apiError && (
-        <p className={forms.alert} role="alert">
-          {apiError}
-        </p>
-      )}
+      <FormAlert message={apiError} />
 
       <div className={forms.field}>
         <label htmlFor="avatar-url" className={forms.label}>

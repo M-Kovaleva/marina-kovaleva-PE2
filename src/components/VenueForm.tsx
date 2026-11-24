@@ -1,5 +1,5 @@
 import { useState, type SubmitEvent } from 'react'
-import { DollarSign, Plus, Trash2, TriangleAlert, Users } from 'lucide-react'
+import { DollarSign, Plus, Trash2, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
 import { useAuth } from '../hooks/useAuth'
 import { createVenue, updateVenue, type VenueData } from '../services/venues'
@@ -10,6 +10,7 @@ import forms from '../styles/forms.module.css'
 import styles from './VenueForm.module.css'
 import { getErrorMessage } from '../utils/errors'
 import { plural } from '../utils/format'
+import FormAlert from './FormAlert'
 
 const MAX_GUESTS = 100
 const MAX_ALT = 120
@@ -181,12 +182,7 @@ function VenueForm({ venue, onSaved, onCancel }: VenueFormProps) {
 
   return (
     <form className={forms.form} noValidate onSubmit={handleSubmit}>
-      {alert && (
-        <p className={forms.alert} role="alert">
-          <TriangleAlert size={18} aria-hidden="true" />
-          {alert}
-        </p>
-      )}
+      <FormAlert message={alert} />
 
       <fieldset className={styles.section}>
         <legend className={styles.legend}>Basics</legend>

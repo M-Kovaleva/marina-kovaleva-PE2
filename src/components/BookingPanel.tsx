@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import type { DateRange } from 'react-day-picker'
-import { CircleCheck, Info, Minus, Plus, TriangleAlert } from 'lucide-react'
+import { CircleCheck, Info, Minus, Plus } from 'lucide-react'
 import VenueCalendar from './VenueCalendar'
 import { useAuth } from '../hooks/useAuth'
 import { createBooking } from '../services/bookings'
@@ -11,9 +11,9 @@ import { formatDate, formatPrice, plural } from '../utils/format'
 import type { Booking } from '../types/booking'
 import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
-import forms from '../styles/forms.module.css'
 import styles from './BookingPanel.module.css'
 import { getErrorMessage } from '../utils/errors'
+import FormAlert from './FormAlert'
 
 interface BookingPanelProps {
   venue: Venue
@@ -214,12 +214,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
         <p className={styles.hint}>Choose dates to see the total price.</p>
       )}
 
-      {apiError && (
-        <p className={forms.alert} role="alert">
-          <TriangleAlert size={18} aria-hidden="true" />
-          {apiError}
-        </p>
-      )}
+      <FormAlert message={apiError} />
 
       {user ? (
         <button
