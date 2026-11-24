@@ -140,7 +140,7 @@
   gap: var(--space-1);
   padding: 2px var(--space-2);
   border-radius: var(--radius-pill);
-  background-color: #eaf1ee;
+  background-color: var(--color-secondary-light);
   color: var(--color-secondary);
   font-size: var(--font-size-caption);
   font-weight: 700;

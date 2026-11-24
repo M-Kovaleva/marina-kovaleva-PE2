@@ -53,7 +53,7 @@
 }
 
 .danger:hover:not(:disabled) {
-  background-color: #7d1610;
+  background-color: var(--color-error-hover);
 }
 
 /* Delete: red outline button that opens the "Delete venue?" question */
@@ -65,5 +65,5 @@
 }
 
 .dangerOutline:hover:not(:disabled) {
-  background-color: #fbeeec;
+  background-color: var(--color-error-light);
 }
