@@ -1,19 +1,15 @@
 import { Check, Coffee, PawPrint, SquareParking, Wifi, X, type LucideIcon } from 'lucide-react'
 import type { VenueMeta } from '../types/venue'
+import { AMENITIES } from '../constants'
 import styles from './VenueAmenities.module.css'
 
-const AMENITIES: {
-  key: keyof VenueMeta
-  label: string
-  icon: LucideIcon
-  yes: string
-  no: string
-}[] = [
-  { key: 'wifi', label: 'Wi-Fi', icon: Wifi, yes: 'Included', no: 'Not included' },
-  { key: 'parking', label: 'Parking', icon: SquareParking, yes: 'Included', no: 'Not included' },
-  { key: 'breakfast', label: 'Breakfast', icon: Coffee, yes: 'Included', no: 'Not included' },
-  { key: 'pets', label: 'Pets', icon: PawPrint, yes: 'Allowed', no: 'Not allowed' },
-]
+/** Icon and "yes / no" text for each amenity */
+const DETAILS: Record<keyof VenueMeta, { icon: LucideIcon; yes: string; no: string }> = {
+  wifi: { icon: Wifi, yes: 'Included', no: 'Not included' },
+  parking: { icon: SquareParking, yes: 'Included', no: 'Not included' },
+  breakfast: { icon: Coffee, yes: 'Included', no: 'Not included' },
+  pets: { icon: PawPrint, yes: 'Allowed', no: 'Not allowed' },
+}
 
 interface VenueAmenitiesProps {
   meta: VenueMeta
@@ -25,7 +21,8 @@ interface VenueAmenitiesProps {
 function VenueAmenities({ meta }: VenueAmenitiesProps) {
   return (
     <ul className={styles.list}>
-      {AMENITIES.map(({ key, label, icon: Icon, yes, no }) => {
+      {AMENITIES.map(({ key, label }) => {
+        const { icon: Icon, yes, no } = DETAILS[key]
         const has = meta[key]
         return (
           <li key={key} className={has ? styles.item : `${styles.item} ${styles.missing}`}>

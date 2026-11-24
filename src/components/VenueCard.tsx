@@ -1,16 +1,10 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Star, Users } from 'lucide-react'
 import VenueImage from './VenueImage'
-import type { Venue, VenueMeta } from '../types/venue'
+import type { Venue } from '../types/venue'
+import { AMENITIES } from '../constants'
 import styles from './VenueCard.module.css'
 import { formatPlace, formatPrice, plural } from '../utils/format'
-
-const AMENITIES: { key: keyof VenueMeta; label: string }[] = [
-  { key: 'wifi', label: 'Wi-Fi' },
-  { key: 'parking', label: 'Parking' },
-  { key: 'breakfast', label: 'Breakfast' },
-  { key: 'pets', label: 'Pets' },
-]
 
 interface VenueCardProps {
   venue: Venue

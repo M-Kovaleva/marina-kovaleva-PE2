@@ -4,8 +4,7 @@ import { MapPin, Search, Users } from 'lucide-react'
 import { toDateInputValue } from '../utils/dates'
 import buttons from '../styles/buttons.module.css'
 import styles from './SearchForm.module.css'
-
-const MAX_GUESTS = 100
+import { MAX_GUESTS } from '../constants'
 
 interface SearchErrors {
   from?: string

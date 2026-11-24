@@ -10,8 +10,7 @@ import forms from '../styles/forms.module.css'
 import styles from './AvatarForm.module.css'
 import { getErrorMessage } from '../utils/errors'
 import FormAlert from './FormAlert'
-
-const MAX_ALT = 120
+import { MAX_ALT } from '../constants'
 
 interface AvatarFormProps {
   onDone: () => void

@@ -5,22 +5,13 @@ import { useAuth } from '../hooks/useAuth'
 import { createVenue, updateVenue, type VenueData } from '../services/venues'
 import { isHttpsUrl } from '../utils/url'
 import type { Venue, VenueMeta } from '../types/venue'
+import { AMENITIES, MAX_ALT, MAX_GUESTS } from '../constants'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './VenueForm.module.css'
 import { getErrorMessage } from '../utils/errors'
 import { plural } from '../utils/format'
 import FormAlert from './FormAlert'
-
-const MAX_GUESTS = 100
-const MAX_ALT = 120
-
-const AMENITIES: { key: keyof VenueMeta; label: string }[] = [
-  { key: 'wifi', label: 'Wi-Fi' },
-  { key: 'parking', label: 'Parking' },
-  { key: 'breakfast', label: 'Breakfast' },
-  { key: 'pets', label: 'Pets allowed' },
-]
 
 /** One photo row. `id` is only for React keys and errors, it is not sent to the API */
 interface PhotoRow {
