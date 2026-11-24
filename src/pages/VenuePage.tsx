@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ChevronLeft, MapPin, Pencil, Trash2, Users } from 'lucide-react'
 import DeleteVenue from '../components/DeleteVenue'
@@ -26,11 +26,6 @@ function VenuePage() {
 
   // Came here from the venue list (the card link sets this state)
   const cameFromList = (location.state as { fromList?: boolean } | null)?.fromList === true
-
-  // A new page starts at the top, not where the list was scrolled to
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [id])
 
   /** Back to the same list and search: browser history if we came from it, else the home page */
   function handleBack(event: MouseEvent<HTMLAnchorElement>) {

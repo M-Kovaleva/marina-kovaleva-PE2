@@ -8,10 +8,12 @@ import NotFoundPage from './pages/NotFoundPage'
 import styles from './App.module.css'
 import AuthModal from './components/AuthModal'
 import RequireLogin from './components/RequireLogin'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <div className={styles.app}>
+      <ScrollToTop />
       <Header />
       <main className={styles.main}>
         <Routes>
