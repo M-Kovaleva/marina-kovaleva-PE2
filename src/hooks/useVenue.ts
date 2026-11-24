@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getVenue } from '../services/venues'
 import type { Venue } from '../types/venue'
 import { ApiError } from '../services/apiFetch'
+import { getErrorMessage } from '../utils/errors'
 
 interface VenueState {
   venue: Venue | null
@@ -33,7 +34,7 @@ export function useVenue(id: string) {
       .then((venue) => setState({ venue, error: null, notFound: false, requestKey }))
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
-        const message = error instanceof Error ? error.message : 'Something went wrong.'
+        const message = getErrorMessage(error)
         const notFound = error instanceof ApiError && (error.status === 404 || error.status === 400)
         setState({ venue: null, error: message, notFound, requestKey })
       })

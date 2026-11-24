@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getProfileVenues } from '../services/profiles'
 import type { Venue } from '../types/venue'
+import { getErrorMessage } from '../utils/errors'
 
 interface VenuesState {
   venues: Venue[]
@@ -25,7 +26,7 @@ export function useMyVenues(name: string, token: string) {
       .then((venues) => setState({ venues, error: null, requestKey }))
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
-        const message = error instanceof Error ? error.message : 'Something went wrong.'
+        const message = getErrorMessage(error)
         setState({ venues: [], error: message, requestKey })
       })
 

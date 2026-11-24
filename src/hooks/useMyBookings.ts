@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getProfileBookings } from '../services/profiles'
 import type { Booking } from '../types/booking'
+import { getErrorMessage } from '../utils/errors'
 
 interface BookingsState {
   bookings: Booking[]
@@ -25,7 +26,7 @@ export function useMyBookings(name: string, token: string) {
       .then((bookings) => setState({ bookings, error: null, requestKey }))
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
-        const message = error instanceof Error ? error.message : 'Something went wrong.'
+        const message = getErrorMessage(error)
         setState({ bookings: [], error: message, requestKey })
       })
 

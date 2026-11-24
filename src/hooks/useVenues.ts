@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getVenues, searchVenues } from '../services/venues'
 import type { Venue } from '../types/venue'
+import { getErrorMessage } from '../utils/errors'
 
 const PAGE_SIZE = 24
 
@@ -52,7 +53,7 @@ export function useVenues(query = '', pageSize = PAGE_SIZE) {
       })
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
-        const message = error instanceof Error ? error.message : 'Something went wrong.'
+        const message = getErrorMessage(error)
         setState((prev) => ({ ...prev, error: message }))
       })
 

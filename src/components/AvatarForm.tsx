@@ -8,6 +8,7 @@ import { isHttpsUrl } from '../utils/url'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './AvatarForm.module.css'
+import { getErrorMessage } from '../utils/errors'
 
 const MAX_ALT = 120
 
@@ -49,7 +50,7 @@ function AvatarForm({ onDone }: AvatarFormProps) {
       if (error instanceof ApiError && error.status === 400) {
         setUrlError('This image is not public. Use a link anyone can open.')
       } else {
-        setApiError(error instanceof Error ? error.message : 'Something went wrong.')
+        setApiError(getErrorMessage(error))
       }
       setIsSending(false)
     }

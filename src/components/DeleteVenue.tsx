@@ -7,6 +7,7 @@ import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './DeleteVenue.module.css'
+import { getErrorMessage } from '../utils/errors'
 
 interface DeleteVenueProps {
   venue: Venue
@@ -34,7 +35,7 @@ function DeleteVenue({ venue, onDeleted, onCancel }: DeleteVenueProps) {
       await deleteVenue(venue.id, user.accessToken)
       onDeleted()
     } catch (error) {
-      setApiError(error instanceof Error ? error.message : 'Something went wrong.')
+      setApiError(getErrorMessage(error))
       setIsDeleting(false)
     }
   }

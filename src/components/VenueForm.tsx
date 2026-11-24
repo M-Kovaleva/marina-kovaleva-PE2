@@ -8,6 +8,7 @@ import type { Venue, VenueMeta } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './VenueForm.module.css'
+import { getErrorMessage } from '../utils/errors'
 
 const MAX_GUESTS = 100
 const MAX_ALT = 120
@@ -169,7 +170,7 @@ function VenueForm({ venue, onSaved, onCancel }: VenueFormProps) {
         : await createVenue(data, user.accessToken)
       onSaved(saved)
     } catch (error) {
-      setAlert(error instanceof Error ? error.message : 'Something went wrong.')
+      setAlert(getErrorMessage(error))
       setIsSending(false)
     }
   }

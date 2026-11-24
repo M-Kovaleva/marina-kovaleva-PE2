@@ -6,6 +6,7 @@ import { registerUser } from '../services/auth'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './RegisterForm.module.css'
+import { getErrorMessage } from '../utils/errors'
 
 const NAME_PATTERN = /^[A-Za-z0-9_]+$/
 const EMAIL_PATTERN = /^[^\s@]+@stud\.noroff\.no$/i
@@ -64,7 +65,7 @@ function RegisterForm({ asManager }: RegisterFormProps) {
       closeAuth()
       navigate('/profile')
     } catch (error) {
-      setApiError(error instanceof Error ? error.message : 'Something went wrong.')
+      setApiError(getErrorMessage(error))
       setIsSending(false)
     }
   }

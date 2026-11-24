@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth'
 import { ApiError } from '../services/apiFetch'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
+import { getErrorMessage } from '../utils/errors'
 
 interface LoginErrors {
   email?: string
@@ -45,7 +46,7 @@ function LoginForm() {
       if (error instanceof ApiError && error.status === 401) {
         setApiError('Wrong email or password. Please try again.')
       } else {
-        setApiError(error instanceof Error ? error.message : 'Something went wrong.')
+        setApiError(getErrorMessage(error))
       }
       setIsSending(false)
     }

@@ -13,6 +13,7 @@ import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
 import forms from '../styles/forms.module.css'
 import styles from './BookingPanel.module.css'
+import { getErrorMessage } from '../utils/errors'
 
 interface BookingPanelProps {
   venue: Venue
@@ -88,7 +89,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
       setCreated(booking)
       setRange(undefined)
     } catch (error) {
-      setApiError(error instanceof Error ? error.message : 'Something went wrong.')
+      setApiError(getErrorMessage(error))
     }
     setIsSending(false)
   }
