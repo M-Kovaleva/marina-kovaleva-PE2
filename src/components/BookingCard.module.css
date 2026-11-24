@@ -93,6 +93,16 @@
   color: var(--color-text);
 }
 
+.dates {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.dates svg {
+  flex-shrink: 0;
+}
+
 .guests {
   display: inline-flex;
   align-items: center;

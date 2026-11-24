@@ -56,10 +56,13 @@ function BookingCard({ booking, isPast = false }: BookingCardProps) {
           </p>
         )}
         <p className={styles.meta}>
-          <CalendarDays size={16} aria-hidden="true" />
-          <strong>
-            {formatDateRange(from, to)}, {plural(nights, 'night')}
-          </strong>
+          {/* Icon and dates stay together when the line wraps on a phone */}
+          <span className={styles.dates}>
+            <CalendarDays size={16} aria-hidden="true" />
+            <strong>
+              {formatDateRange(from, to)}, {plural(nights, 'night')}
+            </strong>
+          </span>
           <span className={styles.guests}>
             <Users size={16} aria-hidden="true" />
             {plural(guests, 'guest')}

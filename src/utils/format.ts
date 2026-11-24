@@ -38,7 +38,10 @@ export function formatDateRange(from: Date, to: Date): string {
   return rangeFormat.formatRange(from, to)
 }
 
-/** Number + word, with "s" when it is not 1: "1 night", "3 nights" */
+/**
+ * Number + word, with "s" when it is not 1: "1 night", "3 nights"
+ * \u00a0 is a non-breaking space: the number and the word never go to different lines
+ */
 export function plural(count: number, word: string): string {
-  return `${count} ${count === 1 ? word : `${word}s`}`
+  return `${count}\u00a0${count === 1 ? word : `${word}s`}`
 }
