@@ -1,0 +1,39 @@
+.past {
+  margin-top: var(--space-8);
+}
+
+/* A full-width row you can click. The browser triangle is hidden, we use our own arrow */
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  font-size: var(--font-size-h3);
+  font-weight: 800;
+  list-style: none;
+  cursor: pointer;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.chevron {
+  color: var(--color-text-muted);
+  transition: transform 0.2s;
+}
+
+/* Open: space under the row, the arrow points up */
+.past[open] .summary {
+  margin-bottom: var(--space-4);
+}
+
+.past[open] .chevron {
+  transform: rotate(180deg);
+}
