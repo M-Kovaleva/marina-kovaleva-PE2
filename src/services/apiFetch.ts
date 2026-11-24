@@ -1,6 +1,6 @@
 import type { ApiErrorResponse } from '../types/api'
 
-export const API_BASE = 'https://v2.api.noroff.dev'
+const API_BASE = 'https://v2.api.noroff.dev'
 const API_KEY = import.meta.env.VITE_NOROFF_API_KEY
 const TIMEOUT_MS = 10_000
 
