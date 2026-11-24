@@ -1,18 +1,18 @@
 :root {
   /* Colours */
-  --color-primary: #8c2d22; /* Primary · Falu red: buttons, logo */
+  --color-primary: #8c2d22; /* Primary: Falu red: buttons, logo */
   --color-primary-hover: #6f231b; /* Primary_hover */
-  --color-secondary: #2f5d50; /* Secondary · Spruce: selected dates, success */
+  --color-secondary: #2f5d50; /* Secondary: Spruce: selected dates, success */
   --color-secondary-light: #eaf1ee; /* Light Spruce: stay badges, booking success */
-  --color-text: #1f2a2e; /* Text_primary · Ink */
+  --color-text: #1f2a2e; /* Text_primary: Ink */
   --color-text-muted: #465254; /* Text_secondary */
   --color-placeholder: #5a6668; /* Placeholder */
   --color-error: #9b1c14; /* Error */
   --color-error-hover: #7d1610; /* Delete button hover */
   --color-error-light: #fbeeec; /* Light red: form alerts, delete buttons hover */
   --color-border: #7a8587; /* Border: inputs, chips */
-  --color-surface-muted: #ece7de; /* Disabled · Birch: tags, booked dates, card borders */
-  --color-bg: #f7f5f0; /* Background · Snow */
+  --color-surface-muted: #ece7de; /* Disabled: Birch: tags, booked dates, card borders */
+  --color-bg: #f7f5f0; /* Background: Snow */
   --color-white: #ffffff; /* White */
 
   /* Typography */

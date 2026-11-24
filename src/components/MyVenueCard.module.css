@@ -178,7 +178,7 @@
     aspect-ratio: 4 / 3;
   }
 
-  /* One line: dates · guests and customer · badge */
+  /* One line: dates, guests and customer, badge */
   .booking {
     grid-template-columns: 16rem 1fr auto;
     grid-template-areas: 'dates people badge';

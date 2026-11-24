@@ -15,7 +15,7 @@ function ProfilePage() {
 
   return (
     <div className={styles.page}>
-      <title>{`${user.name} · Holidaze`}</title>
+      <title>{`${user.name} | Holidaze`}</title>
       <ProfileCard user={user} onChangeAvatar={() => setIsAvatarOpen(true)} />
       <div className={styles.content}>
         {/* Venue managers cannot book stays, so they see their venues instead */}

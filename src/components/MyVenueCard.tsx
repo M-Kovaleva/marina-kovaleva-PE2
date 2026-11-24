@@ -75,7 +75,7 @@ function MyVenueCard({ venue, onEdit, onDelete }: MyVenueCardProps) {
               <li key={booking.id} className={styles.booking}>
                 <p className={styles.dates}>
                   <CalendarDays size={18} aria-hidden="true" />
-                  {formatDateRange(from, to)} , {plural(nights, 'night')}
+                  {formatDateRange(from, to)}, {plural(nights, 'night')}
                 </p>
                 <div className={styles.people}>
                   <p className={styles.icon}>

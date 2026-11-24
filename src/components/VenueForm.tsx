@@ -279,7 +279,7 @@ function VenueForm({ venue, onSaved, onCancel }: VenueFormProps) {
 
       <fieldset className={styles.section}>
         <legend className={styles.legend}>
-          Photos <span className={styles.optional}>optional · first photo is the cover</span>
+          Photos <span className={styles.optional}>optional, first photo is the cover</span>
         </legend>
 
         <ul className={styles.photos}>

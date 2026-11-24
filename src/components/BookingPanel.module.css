@@ -119,7 +119,7 @@
   cursor: not-allowed;
 }
 
-/* 3 nights × $120 ......... $360 */
+/* 3 nights × $120 ... $360 */
 .total {
   margin: 0;
 }
@@ -185,7 +185,7 @@
   flex-shrink: 0;
 }
 
-/* Edit venue · Delete under "This is your venue." */
+/* Edit venue, Delete under "This is your venue." */
 .ownerActions {
   display: grid;
   grid-auto-columns: 1fr;

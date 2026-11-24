@@ -75,7 +75,7 @@ function VenuePage() {
 
   return (
     <div className={styles.page}>
-      <title>{`${name} · Holidaze`}</title>
+      <title>{`${name} | Holidaze`}</title>
       <Link
         to={{ pathname: '/', search: location.search }}
         className={styles.back}

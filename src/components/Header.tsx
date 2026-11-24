@@ -10,8 +10,8 @@ import Avatar from './Avatar'
 
 /**
  * Sticky header.
- * Visitor: Log in · Register · List your venue (phone: Log in + burger menu).
- * Logged in: (+ List your venue for managers) · avatar that opens the account menu
+ * Visitor: Log in, Register, List your venue (phone: Log in + burger menu).
+ * Logged in: (+ List your venue for managers), avatar that opens the account menu
  */
 function Header() {
   const { user, isManager, logout, openAuth } = useAuth()

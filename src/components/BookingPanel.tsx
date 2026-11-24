@@ -62,7 +62,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
   let status = 'Select your check-in date'
   if (range?.from && !range.to) status = 'Select your check-out date'
   if (range?.from && range.to) {
-    status = `${formatDate(range.from)} – ${formatDate(range.to)} , ${plural(nights, 'night')}`
+    status = `${formatDate(range.from)} – ${formatDate(range.to)}, ${plural(nights, 'night')}`
   }
 
   function handleRangeChange(next: DateRange | undefined) {
@@ -132,7 +132,7 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
             Booking created!
           </p>
           <p>
-            {formatDate(new Date(created.dateFrom))} – {formatDate(new Date(created.dateTo))} ·{' '}
+            {formatDate(new Date(created.dateFrom))} – {formatDate(new Date(created.dateTo))},{' '}
             {plural(created.guests, 'guest')}
           </p>
           <Link to="/profile" className={styles.successLink}>

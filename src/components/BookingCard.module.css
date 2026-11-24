@@ -45,6 +45,17 @@
   font-weight: 700;
 }
 
+/* Past stay: grey badge instead of the green one */
+.completed {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}
+
+/* Past stay: faded photo, the text keeps its contrast */
+.past .image {
+  opacity: 0.6;
+}
+
 .title {
   overflow: hidden;
   font-size: var(--font-size-h3);
