@@ -84,15 +84,20 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  /* The rows follow the width of this list, not of the screen:
+     on a 1024px screen the profile has two columns and the list is narrower than on 768px */
+  container-type: inline-size;
 }
 
-/* Phone: dates and badge, then guests and customer below */
+/* Narrow list: badge, dates, then guests and customer.
+   Guests have a fixed width, so the avatars line up in every row */
 .booking {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
   grid-template-areas:
-    'dates badge'
-    'people people';
+    'badge badge'
+    'dates dates'
+    'guests customer';
   gap: var(--space-2) var(--space-3);
   align-items: center;
   padding: var(--space-3);
@@ -109,26 +114,25 @@
   font-weight: 700;
 }
 
-/* No room for the calendar icon on phones: the badge already has one */
+/* The badge just above already has a calendar icon */
 .dates svg {
   display: none;
 }
 
-.people {
+.guests {
   display: flex;
-  flex-wrap: wrap;
-  grid-area: people;
+  grid-area: guests;
   align-items: center;
-  gap: var(--space-2) var(--space-6);
+  gap: var(--space-1);
   color: var(--color-text-muted);
 }
 
 .customer {
   display: flex;
+  grid-area: customer;
   align-items: center;
   gap: var(--space-2);
   min-width: 0;
-  color: var(--color-text);
   font-weight: 700;
   overflow-wrap: anywhere;
 }
@@ -136,6 +140,7 @@
 .badge {
   display: flex;
   grid-area: badge;
+  justify-self: start;
   align-items: center;
   gap: var(--space-1);
   padding: 2px var(--space-2);
@@ -145,6 +150,23 @@
   font-size: var(--font-size-caption);
   font-weight: 700;
   white-space: nowrap;
+}
+
+/* Wide list (640px and more): one line with the same columns in every row */
+@container (min-width: 40rem) {
+  .booking {
+    grid-template-columns: 15rem 6.5rem minmax(0, 1fr) auto;
+    grid-template-areas: 'dates guests customer badge';
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .dates svg {
+    display: block;
+  }
+
+  .badge {
+    justify-self: end;
+  }
 }
 
 .none {
@@ -176,16 +198,5 @@
 
   .image {
     aspect-ratio: 4 / 3;
-  }
-
-  /* One line: dates, guests and customer, badge */
-  .booking {
-    grid-template-columns: 16rem 1fr auto;
-    grid-template-areas: 'dates people badge';
-    padding: var(--space-3) var(--space-4);
-  }
-
-  .dates svg {
-    display: block;
   }
 }

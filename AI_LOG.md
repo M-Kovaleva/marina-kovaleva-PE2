@@ -86,3 +86,18 @@ Explaned
 **Task:** Write alt text for the photos and description of my test venues
 **What AI did:** Suggested a short alt text for each venue photo I shared. Suggested a descriptions for photo. Kept alt text under 120 characters. Followed simple alt text rules.
 **What I did myself:** Chose the photos and checked that the image links are public (https). Read every suggested text. Entered the alt texts and descriptions in the venues form and saved the venues. Checked the result on the venue page and in the gallery.
+
+## 2026-11-25
+
+**Tool:** ChatGPT
+**Task:** Decide if the home page needs a way to clear the whole search (word, dates, guests) with one click, and how to do it.
+**What AI did:**
+
+- Listed the ways to reset the search that already existed and why they were not enough
+- Pointed out the real gap: after a search with dates and guests, the user had to clear each field by hand and search again to see all venues.
+- Explained the common pattern: a "Clear search" / "Clear all" link next to the results, shown only while a filter is active.
+- Gave three options with pros and cons:
+  1. a "Clear search" link next to the results heading (recommended);
+  2. a "Clear" button inside the search form (the form is already tight on phones);
+  3. no change
+     **What I did myself:** Chose option 1 and agreed to remove the duplicate "Show all venues" button, created the GitHub issue and added the code to `VenueResults.tsx`, `VenueResults.module.css` and `NoResults.tsx`.

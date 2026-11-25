@@ -77,18 +77,16 @@ function MyVenueCard({ venue, onEdit, onDelete }: MyVenueCardProps) {
                   <CalendarDays size={18} aria-hidden="true" />
                   {formatDateRange(from, to)}, {plural(nights, 'night')}
                 </p>
-                <div className={styles.people}>
-                  <p className={styles.icon}>
-                    <Users size={16} aria-hidden="true" />
-                    {plural(booking.guests, 'guest')}
+                <p className={styles.guests}>
+                  <Users size={16} aria-hidden="true" />
+                  {plural(booking.guests, 'guest')}
+                </p>
+                {booking.customer && (
+                  <p className={styles.customer}>
+                    <Avatar name={booking.customer.name} url={booking.customer.avatar?.url} />
+                    {booking.customer.name}
                   </p>
-                  {booking.customer && (
-                    <p className={styles.customer}>
-                      <Avatar name={booking.customer.name} url={booking.customer.avatar?.url} />
-                      {booking.customer.name}
-                    </p>
-                  )}
-                </div>
+                )}
                 <p className={styles.badge}>
                   <CalendarDays size={14} aria-hidden="true" />
                   {getStayBadge(from)}
