@@ -29,7 +29,7 @@ function Hero({ children }: HeroProps) {
       <div className={styles.frame}>
         <div className={styles.window} />
         <div className={styles.strip}>
-          <h1 className={styles.title}>Find your next stay.</h1>
+          <h1 className={styles.title}>New view, same you</h1>
           {children}
         </div>
       </div>
