@@ -24,6 +24,11 @@
   cursor: not-allowed;
 }
 
+/* Icons keep their size when a button is narrow (only the text may run tight) */
+.button svg {
+  flex-shrink: 0;
+}
+
 .primary {
   composes: button;
   background-color: var(--color-primary);
