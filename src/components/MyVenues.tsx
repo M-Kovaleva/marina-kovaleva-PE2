@@ -8,6 +8,7 @@ import Modal from './Modal'
 import MyVenueCard from './MyVenueCard'
 import VenueForm from './VenueForm'
 import { useMyVenues } from '../hooks/useMyVenues'
+import { useToast } from '../hooks/useToast'
 import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
 import lists from '../styles/profileList.module.css'
@@ -28,6 +29,7 @@ function MyVenues({ name, token }: MyVenuesProps) {
   const [searchParams, setSearchParams] = useSearchParams()
   const isCreating = searchParams.get('new') === 'venue'
   const [editing, setEditing] = useState<Venue | null>(null)
+  const { showToast } = useToast()
   const [deleting, setDeleting] = useState<Venue | null>(null)
 
   // replace: opening and closing the form does not add steps to the Back button
@@ -41,6 +43,8 @@ function MyVenues({ name, token }: MyVenuesProps) {
   }
 
   function handleSaved() {
+    // Read before closeForm() clears it: editing is set only for Edit
+    showToast(editing ? 'Changes saved' : 'Venue created')
     closeForm()
     reload()
   }
@@ -48,6 +52,7 @@ function MyVenues({ name, token }: MyVenuesProps) {
   function handleDeleted() {
     setDeleting(null)
     reload()
+    showToast('Venue deleted')
   }
 
   return (

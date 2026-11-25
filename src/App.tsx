@@ -10,7 +10,6 @@ import AuthModal from './components/AuthModal'
 import RequireLogin from './components/RequireLogin'
 import Toast from './components/Toast'
 
-
 function App() {
   return (
     <div className={styles.app}>

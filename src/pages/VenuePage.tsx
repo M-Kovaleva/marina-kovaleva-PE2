@@ -9,6 +9,7 @@ import VenueAmenities from '../components/VenueAmenities'
 import VenueForm from '../components/VenueForm'
 import VenueGallery from '../components/VenueGallery'
 import { useVenue } from '../hooks/useVenue'
+import { useToast } from '../hooks/useToast'
 import { formatPlace, plural } from '../utils/format'
 import buttons from '../styles/buttons.module.css'
 import styles from './VenuePage.module.css'
@@ -21,6 +22,7 @@ function VenuePage() {
   const { venue, isLoading, error, notFound, retry } = useVenue(id)
   const location = useLocation()
   const navigate = useNavigate()
+  const { showToast } = useToast()
   const [isEditing, setIsEditing] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
@@ -171,7 +173,10 @@ function VenuePage() {
         {/* The venue page is gone after this, so go to the profile (replace: Back does not return here) */}
         <DeleteVenue
           venue={venue}
-          onDeleted={() => navigate('/profile', { replace: true })}
+          onDeleted={() => {
+            showToast('Venue deleted')
+            navigate('/profile', { replace: true })
+          }}
           onCancel={() => setIsDeleting(false)}
         />
       </Modal>
