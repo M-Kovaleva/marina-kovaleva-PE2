@@ -1,13 +1,25 @@
-/* Mobile: Where on its own row, then two fields per row */
+/* Small phones: one field per row, so the dates are never cut */
 .form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-3);
   align-items: start;
 }
 
 .where {
   grid-column: 1 / -1;
+}
+
+/* From 368px: Where on its own row, then two fields per row.
+   minmax(0, 1fr) makes both columns equal: a date input does not push its column wider */
+@media (min-width: 23rem) {
+  .form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .submit {
+    margin-top: calc(var(--font-size-caption) * 1.5 + var(--space-1));
+  }
 }
 
 /* Desktop: everything in one row */
@@ -82,8 +94,8 @@
   content: '⚠ ';
 }
 
-/* Same top offset as the inputs (label height + gap), so the button lines up with them */
+/* Two columns and wider: the same top offset as the inputs (label height + gap),
+   so the button lines up with them (see the media query at the top) */
 .submit {
   min-height: 52px;
-  margin-top: calc(var(--font-size-caption) * 1.5 + var(--space-1));
 }
