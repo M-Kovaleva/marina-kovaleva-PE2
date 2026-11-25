@@ -8,6 +8,8 @@ import NotFoundPage from './pages/NotFoundPage'
 import styles from './App.module.css'
 import AuthModal from './components/AuthModal'
 import RequireLogin from './components/RequireLogin'
+import Toast from './components/Toast'
+
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
       </main>
       <Footer />
       <AuthModal />
+      <Toast />
     </div>
   )
 }

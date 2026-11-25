@@ -100,4 +100,10 @@ Explaned
   1. a "Clear search" link next to the results heading (recommended);
   2. a "Clear" button inside the search form (the form is already tight on phones);
   3. no change
-     **What I did myself:** Chose option 1 and agreed to remove the duplicate "Show all venues" button, created the GitHub issue and added the code to `VenueResults.tsx`, `VenueResults.module.css` and `NoResults.tsx`.
+**What I did myself:** Chose option 1 and agreed to remove the duplicate "Show all venues" button, created the GitHub issue and added the code to `VenueResults.tsx`, `VenueResults.module.css` and `NoResults.tsx`.
+
+## 25.11.2026
+**Tool:** ChatGPT
+**Task:** A discussion on where short-lived, pop-up notifications ("toasts") might be useful.
+**What AI did:** Gave a rule: use a toast when an action succeeds but the result is not visible on the screen (a modal closes or the page changes). Do not use one when the result is already visible, or for errors. Checked each action: delete a venue: the app goes to the profile or the card just disappears, so a toast is needed; create and edit a venue: the modal closes and the change is easy to miss, so a toast is useful; book a stay: the "Booking created!" block already confirms it with more detail, so no toast; avatar, login, register: the result is visible at once, so no toast.
+**What I did myself:** Suggested toasts for deleting and creating a venue and for booking a stay, avatar changing. Agreed on three places, all for the venue manager: create, edit and delete a venue. Booking keeps its "Booking created!" block.
