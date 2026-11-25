@@ -2,13 +2,32 @@
   margin-top: var(--space-12);
 }
 
+/* Heading on the left, "Clear search" on the right. On a narrow phone the link goes under */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
 .heading {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-bottom: var(--space-6);
   font-size: var(--font-size-h2);
   font-weight: 800;
+}
+
+.clear {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  font-weight: 700;
 }
 
 .count {

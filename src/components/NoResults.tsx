@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { SearchX } from 'lucide-react'
 import buttons from '../styles/buttons.module.css'
 import styles from './NoResults.module.css'
@@ -16,7 +15,8 @@ function focusSearch() {
 }
 
 /**
- * Empty state for the venue list: a message, "Change search" and "Show all venues"
+ * Empty state for the venue list: a message and "Change search".
+ * "Clear search" is next to the results heading
  * */
 function NoResults({ title, message }: NoResultsProps) {
   return (
@@ -29,9 +29,6 @@ function NoResults({ title, message }: NoResultsProps) {
         <button type="button" className={buttons.primary} onClick={focusSearch}>
           Change search
         </button>
-        <Link to="/" className={buttons.secondary}>
-          Show all venues
-        </Link>
       </div>
     </div>
   )

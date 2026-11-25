@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { Check } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Check, X } from 'lucide-react'
 import ErrorMessage from './ErrorMessage'
 import Loader from './Loader'
 import NoResults from './NoResults'
@@ -57,10 +58,19 @@ function VenueResults({ query, filter }: VenueResultsProps) {
 
   return (
     <section className={styles.results} aria-labelledby="results-heading">
-      <h2 id="results-heading" className={styles.heading}>
-        {heading}
-        {!isFiltered && total > 0 && <span className={styles.count}>{totalText}</span>}
-      </h2>
+      <div className={styles.top}>
+        <h2 id="results-heading" className={styles.heading}>
+          {heading}
+          {!isFiltered && total > 0 && <span className={styles.count}>{totalText}</span>}
+        </h2>
+        {/* Only while a search is set. "/" has no search in the address, so the form resets too */}
+        {(query || isFiltered) && (
+          <Link to="/" className={styles.clear}>
+            <X size={16} aria-hidden="true" />
+            Clear search
+          </Link>
+        )}
+      </div>
 
       {!hasVenues && isLoading && <Loader label="Loading venues…" />}
       {isEmpty && (
