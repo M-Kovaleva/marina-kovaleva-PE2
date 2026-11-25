@@ -20,7 +20,7 @@ function AuthModal() {
       description={
         isLogin
           ? 'Log in to book stays or manage your venues.'
-          : 'It’s free. Use your stud.noroff.no email.'
+          : 'Book stays as a customer or list your venues as a manager.'
       }
     >
       <div className={styles.tabs}>
@@ -43,17 +43,6 @@ function AuthModal() {
       </div>
 
       {isLogin ? <LoginForm /> : <RegisterForm asManager={authView === 'register-manager'} />}
-
-      <p className={styles.switch}>
-        {isLogin ? 'No account yet?' : 'Already have an account?'}{' '}
-        <button
-          type="button"
-          className={styles.switchButton}
-          onClick={() => openAuth(isLogin ? 'register' : 'login')}
-        >
-          {isLogin ? 'Register' : 'Log in'}
-        </button>
-      </p>
     </Modal>
   )
 }

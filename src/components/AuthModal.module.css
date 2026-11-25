@@ -25,21 +25,3 @@
   background-color: var(--color-white);
   color: var(--color-text);
 }
-
-.switch {
-  margin-top: var(--space-4);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-small);
-  text-align: center;
-}
-
-.switchButton {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--color-text);
-  font: inherit;
-  font-weight: 700;
-  text-decoration: underline;
-  cursor: pointer;
-}
