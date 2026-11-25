@@ -53,6 +53,12 @@ function VenueResults({ query, filter }: VenueResultsProps) {
   const noneAvailable = isFiltered && hasVenues && shown.length === 0 && isLastPage
   const totalText = total.toLocaleString('en-US')
 
+  // "None of the 1 venues" is wrong English, so one venue gets its own text
+  const noneFit =
+    total === 1
+      ? 'The only venue we found doesn’t fit'
+      : `None of the ${totalText} venues we found fit`
+
   let heading = query ? `Results for “${query}”` : 'All venues'
   if (isFiltered) heading = query ? `Available for “${query}”` : 'Available venues'
 
@@ -91,7 +97,7 @@ function VenueResults({ query, filter }: VenueResultsProps) {
       {noneAvailable && (
         <NoResults
           title="No free venues"
-          message={`None of the ${totalText} venues fit your dates and guests. Try other dates or fewer guests.`}
+          message={`${noneFit} your dates and guests. Try other dates or fewer guests.`}
         />
       )}
 
