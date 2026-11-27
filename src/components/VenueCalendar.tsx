@@ -10,6 +10,8 @@ interface VenueCalendarProps {
   /** Without range and onChange the calendar only shows availability (venue managers) */
   range?: DateRange
   onChange?: (range: DateRange | undefined) => void
+  /** The search form has no booked nights, so it hides the "Available / Booked" legend */
+  showLegend?: boolean
 }
 
 /**
@@ -17,7 +19,7 @@ interface VenueCalendarProps {
  * Past days and booked nights are greyed out and cannot be clicked
  * A stay cannot jump over a booking: then the click starts a new stay instead
  */
-function VenueCalendar({ bookedNights, range, onChange }: VenueCalendarProps) {
+function VenueCalendar({ bookedNights, range, onChange, showLegend = true }: VenueCalendarProps) {
   const today = startOfToday()
   const booked = bookedNights.map((night) => fromDateInputValue(night) as Date)
   const choosingCheckOut = Boolean(range?.from && !range.to)
@@ -65,22 +67,24 @@ function VenueCalendar({ bookedNights, range, onChange }: VenueCalendarProps) {
         />
       )}
 
-      <ul className={styles.legend} aria-label="Legend">
-        <li>
-          <span className={`${styles.swatch} ${styles.free}`} aria-hidden="true" />
-          Available
-        </li>
-        <li>
-          <span className={`${styles.swatch} ${styles.taken}`} aria-hidden="true" />
-          Booked
-        </li>
-        {onChange && (
+      {showLegend && (
+        <ul className={styles.legend} aria-label="Legend">
           <li>
-            <span className={`${styles.swatch} ${styles.chosen}`} aria-hidden="true" />
-            Your stay
+            <span className={`${styles.swatch} ${styles.free}`} aria-hidden="true" />
+            Available
           </li>
-        )}
-      </ul>
+          <li>
+            <span className={`${styles.swatch} ${styles.taken}`} aria-hidden="true" />
+            Booked
+          </li>
+          {onChange && (
+            <li>
+              <span className={`${styles.swatch} ${styles.chosen}`} aria-hidden="true" />
+              Your stay
+            </li>
+          )}
+        </ul>
+      )}
     </div>
   )
 }
