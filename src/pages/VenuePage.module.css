@@ -22,9 +22,9 @@
 
 @media (min-width: 64rem) {
   .layout {
-    grid-template-columns: 1fr 25rem;
+    grid-template-columns: 2fr 1fr;
     align-items: start;
-    gap: var(--space-16);
+    gap: var(--space-6);
   }
 }
 
