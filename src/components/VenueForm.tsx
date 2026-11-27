@@ -279,7 +279,7 @@ function VenueForm({ venue, onSaved, onCancel }: VenueFormProps) {
 
       <fieldset className={styles.section}>
         <legend className={styles.legend}>
-          Photos <span className={styles.optional}>optional, first photo is the cover</span>
+          Photos <span className={styles.optional}>optional</span>
         </legend>
 
         <ul className={styles.photos}>
@@ -294,12 +294,12 @@ function VenueForm({ venue, onSaved, onCancel }: VenueFormProps) {
                     fallbackAlt={`Photo ${index + 1}`}
                     className={styles.thumbImage}
                   />
-                  {index === 0 && <span className={styles.cover}>Cover</span>}
                 </div>
 
                 <div className={`${forms.field} ${styles.photoUrl}`}>
+                  {/* The first photo is the cover of the venue card */}
                   <label htmlFor={`photo-url-${photo.id}`} className={forms.label}>
-                    Image URL
+                    {index === 0 ? 'Cover image URL' : 'Image URL'}
                   </label>
                   <input
                     id={`photo-url-${photo.id}`}

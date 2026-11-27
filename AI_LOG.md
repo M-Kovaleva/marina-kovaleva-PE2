@@ -115,3 +115,10 @@ Explaned
 **Task:** Brainstorm: review the "+ List your venue" (header) and "+ Create venue" (profile) buttons for the venue manager: colour hierarchy, layout and common sense.
 **What AI did:** gave the rule: one action, one name, one prominent place per screen. The header button exists to create a venue from any page, so it is not needed where the page has its own button. Gave options: hide the header button on the profile page and call it "Create venue" for managers everywhere, keeping "List your venue" only for visitors, where it means "become a host"; keep both buttons with one name; remove the profile button.
 **What I did myself:** Noticed the two similar buttons on the profile page and asked for a review of their colour, layout and logic. Chose option
+
+## 2026-11-27
+
+**Tool:** ChatGPT
+**Task:** Brainstorm: redesign the "+ Create venue" button in the header: use the secondary colour (Spruce) and rethink the hover.
+**What AI did:** Gave three options: (A) a filled Spruce button: very visible, but it competes with the red main action, and Spruce already means "selected dates, success"; (B) a Spruce outline and text with a light Spruce background on hover; (C) Spruce text only: too small to tap. Recommended B. Explained that B follows the same pattern as `.dangerOutline` (coloured outline, light tint on hover) and checked the contrast: Spruce on white 7.5:1, on light Spruce 6.5:1.
+**What I did myself:** Wanted the header button to look different and suggested the secondary colour and a better hover. Chose option B and decided to use it for all secondary buttons, not only in the header
