@@ -78,10 +78,6 @@
   outline: none;
 }
 
-.card:hover .link {
-  text-decoration: underline;
-}
-
 .location {
   display: flex;
   align-items: center;
