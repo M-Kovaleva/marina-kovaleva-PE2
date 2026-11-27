@@ -9,7 +9,7 @@ import styles from './AuthModal.module.css'
  * on top of the current page, so search dates and guests are not lost
  */
 function AuthModal() {
-  const { authView, openAuth, closeAuth } = useAuth()
+  const { user, authView, openAuth, closeAuth } = useAuth()
   const isLogin = authView === 'login'
 
   return (
@@ -20,7 +20,9 @@ function AuthModal() {
       description={
         isLogin
           ? 'Log in to book stays or manage your venues.'
-          : 'Book stays as a customer or list your venues as a manager.'
+          : user
+            ? 'Venue managers have a separate account. After you register, you’ll be logged in to it.'
+            : 'Book stays as a customer or list your venues as a manager.'
       }
     >
       <div className={styles.tabs}>

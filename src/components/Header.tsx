@@ -10,14 +10,15 @@ import Avatar from './Avatar'
 
 /**
  * Sticky header.
- * Visitor: Log in, Register, List your venue (phone: Log in + burger menu).
- * Logged in: (+ Create venue for managers, not on the profile page), avatar that opens the account menu
+ * Visitor: Log in, Register, Create venue (phone: Log in + burger menu).
+ * Logged in: + Create venue (managers: the create form, not on the profile page;
+ * customers: register a separate venue manager account), avatar that opens the account menu
  */
 function Header() {
   const { user, isManager, logout, openAuth } = useAuth()
   const { pathname } = useLocation()
-  // The profile page has its own Create venue button, so the header does not repeat it
-  const showCreate = isManager && pathname !== '/profile'
+  // The manager's profile page has its own Create venue button, so the header does not repeat it
+  const showCreate = !isManager || pathname !== '/profile'
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
   const accountMenu = useRef<HTMLDivElement>(null)
@@ -55,16 +56,27 @@ function Header() {
 
         {user ? (
           <div className={styles.actions}>
-            {showCreate && (
-              // Opens the Create venue form on the profile page
-              <Link
-                to="/profile?new=venue"
-                className={`${buttons.secondary} ${styles.desktopOnly}`}
-              >
-                <Plus size={18} aria-hidden="true" />
-                Create venue
-              </Link>
-            )}
+            {showCreate &&
+              (isManager ? (
+                // Opens the Create venue form on the profile page
+                <Link
+                  to="/profile?new=venue"
+                  className={`${buttons.secondary} ${styles.desktopOnly}`}
+                >
+                  <Plus size={18} aria-hidden="true" />
+                  Create venue
+                </Link>
+              ) : (
+                // Customers can't create venues: venue managers have a separate account
+                <button
+                  type="button"
+                  className={`${buttons.secondary} ${styles.desktopOnly}`}
+                  onClick={() => openAuth('register-manager')}
+                >
+                  <Plus size={18} aria-hidden="true" />
+                  Create venue
+                </button>
+              ))}
 
             <button
               type="button"
@@ -96,14 +108,28 @@ function Header() {
                 </li>
                 {showCreate && (
                   <li className={`${styles.menuAction} ${styles.phoneOnly}`}>
-                    <Link
-                      to="/profile?new=venue"
-                      className={`${buttons.secondary} ${styles.menuButton}`}
-                      onClick={closeAccountMenu}
-                    >
-                      <Plus size={18} aria-hidden="true" />
-                      Create venue
-                    </Link>
+                    {isManager ? (
+                      <Link
+                        to="/profile?new=venue"
+                        className={`${buttons.secondary} ${styles.menuButton}`}
+                        onClick={closeAccountMenu}
+                      >
+                        <Plus size={18} aria-hidden="true" />
+                        Create venue
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        className={`${buttons.secondary} ${styles.menuButton}`}
+                        onClick={() => {
+                          closeAccountMenu()
+                          openAuth('register-manager')
+                        }}
+                      >
+                        <Plus size={18} aria-hidden="true" />
+                        Create venue
+                      </button>
+                    )}
                   </li>
                 )}
               </ul>
@@ -144,7 +170,7 @@ function Header() {
                 onClick={() => openModal('register-manager')}
               >
                 <Plus size={18} aria-hidden="true" />
-                List your venue
+                Create venue
               </button>
             </nav>
           </div>
