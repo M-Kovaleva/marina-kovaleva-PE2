@@ -1,5 +1,5 @@
 import { useRef, useState, type KeyboardEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ChevronDown, LogOut, Menu, Plus, User, X } from 'lucide-react'
 import Logo from './Logo'
 import type { AuthView } from '../context/AuthContext'
@@ -11,10 +11,13 @@ import Avatar from './Avatar'
 /**
  * Sticky header.
  * Visitor: Log in, Register, List your venue (phone: Log in + burger menu).
- * Logged in: (+ List your venue for managers), avatar that opens the account menu
+ * Logged in: (+ Create venue for managers, not on the profile page), avatar that opens the account menu
  */
 function Header() {
   const { user, isManager, logout, openAuth } = useAuth()
+  const { pathname } = useLocation()
+  // The profile page has its own Create venue button, so the header does not repeat it
+  const showCreate = isManager && pathname !== '/profile'
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
   const accountMenu = useRef<HTMLDivElement>(null)
@@ -52,14 +55,14 @@ function Header() {
 
         {user ? (
           <div className={styles.actions}>
-            {isManager && (
+            {showCreate && (
               // Opens the Create venue form on the profile page
               <Link
                 to="/profile?new=venue"
                 className={`${buttons.secondary} ${styles.desktopOnly}`}
               >
                 <Plus size={18} aria-hidden="true" />
-                List your venue
+                Create venue
               </Link>
             )}
 
@@ -91,7 +94,7 @@ function Header() {
                     Log out
                   </button>
                 </li>
-                {isManager && (
+                {showCreate && (
                   <li className={`${styles.menuAction} ${styles.phoneOnly}`}>
                     <Link
                       to="/profile?new=venue"
@@ -99,7 +102,7 @@ function Header() {
                       onClick={closeAccountMenu}
                     >
                       <Plus size={18} aria-hidden="true" />
-                      List your venue
+                      Create venue
                     </Link>
                   </li>
                 )}

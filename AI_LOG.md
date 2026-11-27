@@ -108,3 +108,10 @@ Explaned
 **Task:** A discussion on where short-lived, pop-up notifications ("toasts") might be useful.
 **What AI did:** Gave a rule: use a toast when an action succeeds but the result is not visible on the screen (a modal closes or the page changes). Do not use one when the result is already visible, or for errors. Checked each action: delete a venue: the app goes to the profile or the card just disappears, so a toast is needed; create and edit a venue: the modal closes and the change is easy to miss, so a toast is useful; book a stay: the "Booking created!" block already confirms it with more detail, so no toast; avatar, login, register: the result is visible at once, so no toast.
 **What I did myself:** Suggested toasts for deleting and creating a venue and for booking a stay, avatar changing. Agreed on three places, all for the venue manager: create, edit and delete a venue. Booking keeps its "Booking created!" block.
+
+## 2026-11-27
+
+**Tool:** ChatGPT
+**Task:** Brainstorm: review the "+ List your venue" (header) and "+ Create venue" (profile) buttons for the venue manager: colour hierarchy, layout and common sense.
+**What AI did:** gave the rule: one action, one name, one prominent place per screen. The header button exists to create a venue from any page, so it is not needed where the page has its own button. Gave options: hide the header button on the profile page and call it "Create venue" for managers everywhere, keeping "List your venue" only for visitors, where it means "become a host"; keep both buttons with one name; remove the profile button.
+**What I did myself:** Noticed the two similar buttons on the profile page and asked for a review of their colour, layout and logic. Chose option
