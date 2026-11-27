@@ -17,6 +17,11 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Check-in and check-out sit in one box that takes both columns */
+  .dates {
+    grid-column: span 2;
+  }
+
   .submit {
     margin-top: calc(var(--font-size-caption) * 1.5 + var(--space-1));
     padding: 0 var(--space-3);
@@ -45,7 +50,8 @@
   min-width: 0;
 }
 
-.field label {
+.field label,
+.label {
   color: var(--color-text-muted);
   font-size: var(--font-size-caption);
   font-weight: 700;
@@ -87,6 +93,34 @@
 
 .inputWrap input {
   padding-left: 2.5rem;
+}
+
+/* Same height as the inputs: a small caption and the date in each half */
+.datesButton {
+  min-height: 52px;
+  cursor: pointer;
+}
+
+.datesButton > span {
+  justify-content: center;
+  padding-block: var(--space-1);
+}
+
+.datesButton[aria-invalid='true'] {
+  border: 2px solid var(--color-error);
+}
+
+.status {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
 }
 
 .error {

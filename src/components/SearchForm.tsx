@@ -1,14 +1,21 @@
 import { useState, type SubmitEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import type { DateRange } from 'react-day-picker'
 import { MapPin, Search, Users } from 'lucide-react'
-import { toDateInputValue } from '../utils/dates'
+import Modal from './Modal'
+import VenueCalendar from './VenueCalendar'
+import { countNights, fromDateInputValue, toDateInputValue } from '../utils/dates'
+import { formatDate, plural } from '../utils/format'
 import buttons from '../styles/buttons.module.css'
+import dates from '../styles/dateRange.module.css'
 import styles from './SearchForm.module.css'
 import { MAX_GUESTS } from '../constants'
 
+/** The search calendar has no booked nights: every day from today can be picked */
+const NO_BOOKINGS: string[] = []
+
 interface SearchErrors {
-  from?: string
-  to?: string
+  dates?: string
   guests?: string
 }
 
@@ -17,10 +24,9 @@ function validate(from: string, to: string, guests: string, today: string): Sear
   const errors: SearchErrors = {}
   const count = Number(guests)
 
-  if (from && from < today) errors.from = 'Check-in can’t be in the past'
-  if (!from && to) errors.from = 'Choose a check-in date'
-  if (from && !to) errors.to = 'Choose a check-out date'
-  if (from && to && to <= from) errors.to = 'Check-out must be after check-in'
+  // The calendar never lets check-out be before check-in. An old link can still hold a past date
+  if (from && from < today) errors.dates = 'Check-in can’t be in the past'
+  else if (from && !to) errors.dates = 'Choose a check-out date'
   if (!Number.isInteger(count) || count < 1) errors.guests = 'At least 1 guest'
   else if (count > MAX_GUESTS) errors.guests = `Up to ${MAX_GUESTS} guests`
 
@@ -28,7 +34,7 @@ function validate(from: string, to: string, guests: string, today: string): Sear
 }
 
 /**
- * Search block: Where, Check-in, Check-out, Guests, Find a stay
+ * Search block: Where, When (check-in and check-out in a calendar window), Guests, Find a stay
  * Reads its start values from the URL and saves the search back to the URL
  */
 function SearchForm() {
@@ -38,7 +44,24 @@ function SearchForm() {
   const [to, setTo] = useState(searchParams.get('to') ?? '')
   const [guests, setGuests] = useState(searchParams.get('guests') ?? '1')
   const [errors, setErrors] = useState<SearchErrors>({})
+  const [isPicking, setIsPicking] = useState(false)
   const today = toDateInputValue(new Date())
+
+  const checkIn = fromDateInputValue(from)
+  const checkOut = fromDateInputValue(to)
+  const range: DateRange | undefined = checkIn ? { from: checkIn, to: checkOut } : undefined
+
+  let status = 'Select your check-in date'
+  if (checkIn && !checkOut) status = 'Select your check-out date'
+  if (checkIn && checkOut) {
+    status = `${formatDate(checkIn)} – ${formatDate(checkOut)}, ${plural(countNights(checkIn, checkOut), 'night')}`
+  }
+
+  function handleRangeChange(next: DateRange | undefined) {
+    setFrom(next?.from ? toDateInputValue(next.from) : '')
+    setTo(next?.to ? toDateInputValue(next.to) : '')
+    setErrors((prev) => ({ ...prev, dates: undefined }))
+  }
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -78,44 +101,31 @@ function SearchForm() {
         </div>
       </div>
 
-      <div className={styles.field}>
-        <label htmlFor="search-from">Check-in</label>
-        <input
-          id="search-from"
-          type="date"
-          value={from}
-          min={today}
-          onChange={(event) => {
-            setFrom(event.target.value)
-            setErrors((prev) => ({ ...prev, from: undefined }))
-          }}
-          aria-invalid={Boolean(errors.from)}
-          aria-describedby={errors.from ? 'search-from-error' : undefined}
-        />
-        {errors.from && (
-          <p id="search-from-error" className={styles.error}>
-            {errors.from}
-          </p>
-        )}
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="search-to">Check-out</label>
-        <input
-          id="search-to"
-          type="date"
-          value={to}
-          min={from || today}
-          onChange={(event) => {
-            setTo(event.target.value)
-            setErrors((prev) => ({ ...prev, to: undefined }))
-          }}
-          aria-invalid={Boolean(errors.to)}
-          aria-describedby={errors.to ? 'search-to-error' : undefined}
-        />
-        {errors.to && (
-          <p id="search-to-error" className={styles.error}>
-            {errors.to}
+      {/* One button for both dates: it opens the same calendar as the venue page */}
+      <div className={`${styles.field} ${styles.dates}`}>
+        <span className={styles.label} aria-hidden="true">
+          When
+        </span>
+        <button
+          type="button"
+          className={`${dates.range} ${styles.datesButton}`}
+          aria-haspopup="dialog"
+          aria-invalid={Boolean(errors.dates)}
+          aria-describedby={errors.dates ? 'search-dates-error' : undefined}
+          onClick={() => setIsPicking(true)}
+        >
+          <span className={dates.half}>
+            <span className={dates.label}>Check-in</span>
+            <span className={dates.value}>{checkIn ? formatDate(checkIn) : 'Add date'}</span>
+          </span>
+          <span className={dates.half}>
+            <span className={dates.label}>Check-out</span>
+            <span className={dates.value}>{checkOut ? formatDate(checkOut) : 'Add date'}</span>
+          </span>
+        </button>
+        {errors.dates && (
+          <p id="search-dates-error" className={styles.error}>
+            {errors.dates}
           </p>
         )}
       </div>
@@ -150,6 +160,36 @@ function SearchForm() {
         <Search size={20} aria-hidden="true" />
         Find a stay
       </button>
+
+      <Modal
+        isOpen={isPicking}
+        onClose={() => setIsPicking(false)}
+        title="When are you going?"
+        size="small"
+      >
+        <VenueCalendar
+          bookedNights={NO_BOOKINGS}
+          range={range}
+          onChange={handleRangeChange}
+          showLegend={false}
+        />
+        <p className={styles.status} aria-live="polite">
+          {status}
+        </p>
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={buttons.secondary}
+            onClick={() => handleRangeChange(undefined)}
+            disabled={!range}
+          >
+            Clear
+          </button>
+          <button type="button" className={buttons.primary} onClick={() => setIsPicking(false)}>
+            Done
+          </button>
+        </div>
+      </Modal>
     </form>
   )
 }
