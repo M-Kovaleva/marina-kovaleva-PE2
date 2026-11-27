@@ -39,15 +39,17 @@
   background-color: var(--color-primary-hover);
 }
 
+/* Spruce outline: every second action (Edit, Cancel, Create venue in the header…).
+   Calmer than the red main action; on hover a light tint of the same colour */
 .secondary {
   composes: button;
-  border-color: var(--color-text);
+  border-color: var(--color-secondary);
   background-color: var(--color-white);
-  color: var(--color-text);
+  color: var(--color-secondary);
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: var(--color-surface-muted);
+  background-color: var(--color-secondary-light);
 }
 
 /* Delete: red button for the final "yes, delete" */
