@@ -33,34 +33,6 @@
   font-size: var(--font-size-small);
 }
 
-/* Check-in | Check-out boxes */
-.dates {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-}
-
-.dates > div {
-  padding: var(--space-2) var(--space-3);
-}
-
-.dates > div + div {
-  border-left: 1px solid var(--color-border);
-}
-
-.dates dt {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-caption);
-  font-weight: 700;
-}
-
-.dates dd {
-  margin: 0;
-  font-weight: 600;
-}
-
 .status {
   display: flex;
   align-items: center;

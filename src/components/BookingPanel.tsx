@@ -11,6 +11,7 @@ import { formatDate, formatPrice, plural } from '../utils/format'
 import type { Booking } from '../types/booking'
 import type { Venue } from '../types/venue'
 import buttons from '../styles/buttons.module.css'
+import dates from '../styles/dateRange.module.css'
 import styles from './BookingPanel.module.css'
 import { getErrorMessage } from '../utils/errors'
 import FormAlert from './FormAlert'
@@ -141,14 +142,14 @@ function BookingPanel({ venue, ownerActions }: BookingPanelProps) {
         </div>
       )}
 
-      <dl className={styles.dates}>
-        <div>
-          <dt>Check-in</dt>
-          <dd>{range?.from ? formatDate(range.from) : 'Add date'}</dd>
+      <dl className={dates.range}>
+        <div className={dates.half}>
+          <dt className={dates.label}>Check-in</dt>
+          <dd className={dates.value}>{range?.from ? formatDate(range.from) : 'Add date'}</dd>
         </div>
-        <div>
-          <dt>Check-out</dt>
-          <dd>{range?.to ? formatDate(range.to) : 'Add date'}</dd>
+        <div className={dates.half}>
+          <dt className={dates.label}>Check-out</dt>
+          <dd className={dates.value}>{range?.to ? formatDate(range.to) : 'Add date'}</dd>
         </div>
       </dl>
 
