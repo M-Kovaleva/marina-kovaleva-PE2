@@ -70,6 +70,16 @@
   font-weight: 600;
 }
 
+/* Looks like "Clear search": a quiet text button under the main one */
+.back {
+  composes: clear;
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .end {
   display: flex;
   align-items: center;

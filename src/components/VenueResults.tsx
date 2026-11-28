@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, X } from 'lucide-react'
+import { ArrowUp, Check, X } from 'lucide-react'
 import ErrorMessage from './ErrorMessage'
 import Loader from './Loader'
 import NoResults from './NoResults'
@@ -58,6 +58,15 @@ function VenueResults({ query, filter }: VenueResultsProps) {
     total === 1
       ? 'The only venue we found doesn’t fit'
       : `None of the ${totalText} venues we found fit`
+
+  // Long list: take the user back to the search form to change the search
+  function backToSearch() {
+    const form = document.getElementById('search')
+    if (!form) return
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    form.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' })
+    form.focus({ preventScroll: true })
+  }
 
   let heading = query ? `Results for “${query}”` : 'All venues'
   if (isFiltered) heading = query ? `Available for “${query}”` : 'Available venues'
@@ -132,6 +141,11 @@ function VenueResults({ query, filter }: VenueResultsProps) {
                 You’ve seen all venues
               </p>
             )}
+
+            <button type="button" className={styles.back} onClick={backToSearch}>
+              <ArrowUp size={16} aria-hidden="true" />
+              Back to search
+            </button>
           </div>
         </>
       )}

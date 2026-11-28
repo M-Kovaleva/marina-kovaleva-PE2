@@ -6,6 +6,11 @@
   align-items: start;
 }
 
+/* "Back to search" moves the focus here; no frame around the whole form */
+.form:focus-visible {
+  outline: none;
+}
+
 .where {
   grid-column: 1 / -1;
 }

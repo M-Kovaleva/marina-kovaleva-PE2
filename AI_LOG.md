@@ -129,3 +129,10 @@ Explaned
 **Task:** Change style of venues ctaegories chips
 **What AI did:** Suggested options: (B) tabs with the icon above the word and a Spruce line under the selected one; (C) soft light Spruce chips with a filled selected chip. Recommended B as calmer next to the red search button.
 **What I did myself:** Chose variant C .Added the code.
+
+## 2026-11-28
+
+**Tool:** ChatGPT
+**Task:** Brainstorm: how to let users get back to the top of the home page after a long list of venues.
+**What AI did:** Gave four options: (A) a floating arrow button that shows after scrolling: familiar, but it covers cards on phones and needs a scroll listener and extra state; (B) a "Back to top" button at the end of the list next to "Show more venues": shows up where the user stops scrolling, covers nothing, needs no listener and stays in the normal Tab order; (C) the logo scrolls to the top: hidden, and the logo link to "/" clears the search; (D) do nothing and rely on browser keys and gestures: not everyone knows them. Recommended B, with no animation when the user prefers reduced motion and focus moved to the search so keyboard users do not stay at the bottom. Also suggested "Back to search", which scrolls to the search form instead of the very top.
+**What I did myself:** Noticed that getting back to the top of the home page is hard after loading more venues and asked for options. Chose option B

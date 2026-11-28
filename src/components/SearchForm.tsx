@@ -80,6 +80,8 @@ function SearchForm() {
 
   return (
     <form
+      id="search"
+      tabIndex={-1}
       className={styles.form}
       role="search"
       aria-label="Find a stay"
