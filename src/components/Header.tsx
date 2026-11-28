@@ -50,7 +50,14 @@ function Header() {
   return (
     <header className={styles.header} onKeyDown={handleKeyDown}>
       <div className={styles.bar}>
-        <Link to="/" className={styles.home} onClick={closeMenu}>
+        <Link
+          to="/"
+          className={styles.home}
+          onClick={() => {
+            closeMenu()
+            window.scrollTo(0, 0)
+          }}
+        >
           <Logo />
         </Link>
 

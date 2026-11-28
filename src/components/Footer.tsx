@@ -7,7 +7,7 @@ function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.bar}>
-        <Link to="/" className={styles.home}>
+        <Link to="/" className={styles.home} onClick={() => window.scrollTo(0, 0)}>
           <Logo />
         </Link>
         <p className={styles.copyright}>© {new Date().getFullYear()} Holidaze</p>
