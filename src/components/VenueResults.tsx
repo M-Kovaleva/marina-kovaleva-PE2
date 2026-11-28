@@ -26,7 +26,7 @@ interface VenueResultsProps {
  */
 function VenueResults({ query, filter }: VenueResultsProps) {
   const isFiltered = hasFilter(filter)
-  const { venues, total, isLastPage, isLoading, error, loadMore, retry } = useVenues(
+  const { venues, total, isLastPage, isLoading, error, loadMore, retry, returnTo } = useVenues(
     query,
     isFiltered ? FILTER_PAGE_SIZE : undefined
   )
@@ -38,6 +38,14 @@ function VenueResults({ query, filter }: VenueResultsProps) {
   useEffect(() => {
     if (needsMore) loadMore()
   }, [needsMore, loadMore])
+
+  // Back from a venue page: show its card and put the focus on its link
+  useEffect(() => {
+    if (!returnTo) return
+    const item = document.getElementById(`venue-${returnTo}`)
+    item?.scrollIntoView({ block: 'center' })
+    item?.querySelector('a')?.focus({ preventScroll: true })
+  }, [returnTo])
 
   // Dates and guests go on to the venue page
   const stay = new URLSearchParams()
@@ -114,7 +122,7 @@ function VenueResults({ query, filter }: VenueResultsProps) {
         <>
           <ul className={styles.grid}>
             {shown.map((venue) => (
-              <li key={venue.id}>
+              <li key={venue.id} id={`venue-${venue.id}`}>
                 <VenueCard venue={venue} search={stay.toString()} />
               </li>
             ))}

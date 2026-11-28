@@ -6,6 +6,7 @@ import { AMENITIES } from '../constants'
 import styles from './VenueCard.module.css'
 import { formatPlace, formatPrice, plural } from '../utils/format'
 import RatingBadge from './RatingBadge'
+import { rememberOpenedVenue } from '../hooks/useVenues'
 
 interface VenueCardProps {
   venue: Venue
@@ -38,6 +39,7 @@ function VenueCard({ venue, search = '' }: VenueCardProps) {
               to={{ pathname: `/venues/${id}`, search }}
               state={{ fromList: true }}
               className={styles.link}
+              onClick={() => rememberOpenedVenue(id)}
             >
               {name}
             </Link>
