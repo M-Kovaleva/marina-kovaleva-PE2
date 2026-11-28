@@ -136,3 +136,18 @@ Explaned
 **Task:** Brainstorm: how to let users get back to the top of the home page after a long list of venues.
 **What AI did:** Gave four options: (A) a floating arrow button that shows after scrolling: familiar, but it covers cards on phones and needs a scroll listener and extra state; (B) a "Back to top" button at the end of the list next to "Show more venues": shows up where the user stops scrolling, covers nothing, needs no listener and stays in the normal Tab order; (C) the logo scrolls to the top: hidden, and the logo link to "/" clears the search; (D) do nothing and rely on browser keys and gestures: not everyone knows them. Recommended B, with no animation when the user prefers reduced motion and focus moved to the search so keyboard users do not stay at the bottom. Also suggested "Back to search", which scrolls to the search form instead of the very top.
 **What I did myself:** Noticed that getting back to the top of the home page is hard after loading more venues and asked for options. Chose option B
+
+## 2026-11-28
+
+**Tool:** ChatGPT
+**Task:** Brainstorm and build: "Back to venues" and the browser Back button should return to the same card in the list, not to the top of the search.
+**What AI did:**
+
+- Found the cause: the list lives in the state of the `useVenues` hook, so it is lost when the home page closes. On return only page 1 loads, the card from "Show more" pages is missing, and the browser cannot restore the scroll on a short page. React Router's `<ScrollRestoration>` needs a different router type, which would mean rewriting `main.tsx` and `App.tsx`.
+- Rated it as medium (about 40 lines in 3 files, no new libraries) and suggested a plan:
+  1. `useVenues.ts`: keep the last list (search key, venues, loaded page) in a module variable. Reuse it only when `useNavigationType()` is `'POP'` (a step back or forward in history) and the search is the same, so a new search, a chip or the logo still load a fresh list. Skip the request when the page is already loaded.
+  2. `VenueCard.tsx`: remember the id of the opened venue on click.
+  3. `VenueResults.tsx`: give each list item an id; after "Back" scroll the card to the centre (so the sticky header does not cover it) and move the focus to its link for keyboard and screen reader users.
+- Explained that the browser Back button, the swipe back on phones and the mouse back button work the same way, because they are all `'POP'`.
+- Named the limits: after a page reload (F5) the memory is empty and the list starts from the top; after editing a venue the list shows the old data until a new search. Advised against `sessionStorage` (extra code and a new storage key).
+  **What I did myself:**Noticed that "Back to venues" returns to the top of the search and asked how hard it is to return to the same card. Change code to the 3 files and tested it with "Show more", "Back to venues", the browser Back button, search, chips and dates.
