@@ -122,3 +122,10 @@ Explaned
 **Task:** Brainstorm: redesign the "+ Create venue" button in the header: use the secondary colour (Spruce) and rethink the hover.
 **What AI did:** Gave three options: (A) a filled Spruce button: very visible, but it competes with the red main action, and Spruce already means "selected dates, success"; (B) a Spruce outline and text with a light Spruce background on hover; (C) Spruce text only: too small to tap. Recommended B. Explained that B follows the same pattern as `.dangerOutline` (coloured outline, light tint on hover) and checked the contrast: Spruce on white 7.5:1, on light Spruce 6.5:1.
 **What I did myself:** Wanted the header button to look different and suggested the secondary colour and a better hover. Chose option B and decided to use it for all secondary buttons, not only in the header
+
+## 2026-11-28
+
+**Tool:** hatGPT
+**Task:** Change style of venues ctaegories chips
+**What AI did:** Suggested options: (B) tabs with the icon above the word and a Spruce line under the selected one; (C) soft light Spruce chips with a filled selected chip. Recommended B as calmer next to the red search button.
+**What I did myself:** Chose variant C .Added the code.
