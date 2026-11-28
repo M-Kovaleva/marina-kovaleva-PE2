@@ -99,9 +99,9 @@
   display: grid;
   grid-area: remove;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  margin-top: 1.5rem;
+  width: 48px;
+  height: 48px;
+  margin-top: calc(var(--font-size-small) * 1.5 + var(--space-1));
   padding: 0;
   border: 1.5px solid var(--color-error);
   border-radius: var(--radius-md);
